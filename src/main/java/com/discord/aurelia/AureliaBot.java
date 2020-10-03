@@ -12,7 +12,7 @@ public class AureliaBot  {
 
 
    public static void startBot(){
-    final String token = "NzYwNDY2MjczODIxMzkyODk2.X3MdaA.btlY8WQpwoB35mnziSNKj7kbg7g";
+    /*final String token = "NzYwNDY2MjczODIxMzkyODk2.X3MdaA.btlY8WQpwoB35mnziSNKj7kbg7g";
     final DiscordClient client = DiscordClient.create(token);
     final GatewayDiscordClient gateway = client.login().block();
     gateway.on(MessageCreateEvent.class).subscribe(event -> {
@@ -23,7 +23,7 @@ public class AureliaBot  {
       }
     });
     
-    gateway.onDisconnect().block();
+    gateway.onDisconnect().block();*/
   
    }
 }

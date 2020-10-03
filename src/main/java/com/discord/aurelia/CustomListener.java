@@ -17,41 +17,100 @@
 
 package com.discord.aurelia;
 
+import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import discord4j.core.event.domain.Event;
+import discord4j.core.event.domain.PresenceUpdateEvent;
+import discord4j.core.event.domain.UserUpdateEvent;
+import discord4j.core.event.domain.VoiceServerUpdateEvent;
+import discord4j.core.event.domain.VoiceStateUpdateEvent;
+import discord4j.core.event.domain.WebhooksUpdateEvent;
 import discord4j.core.event.domain.channel.CategoryCreateEvent;
-import discord4j.core.event.domain.*;
+import discord4j.core.event.domain.channel.CategoryDeleteEvent;
+import discord4j.core.event.domain.channel.CategoryUpdateEvent;
+import discord4j.core.event.domain.channel.NewsChannelCreateEvent;
+import discord4j.core.event.domain.channel.NewsChannelDeleteEvent;
+import discord4j.core.event.domain.channel.NewsChannelUpdateEvent;
+import discord4j.core.event.domain.channel.PinsUpdateEvent;
+import discord4j.core.event.domain.channel.PrivateChannelCreateEvent;
+import discord4j.core.event.domain.channel.PrivateChannelDeleteEvent;
+import discord4j.core.event.domain.channel.StoreChannelCreateEvent;
+import discord4j.core.event.domain.channel.StoreChannelDeleteEvent;
+import discord4j.core.event.domain.channel.StoreChannelUpdateEvent;
+import discord4j.core.event.domain.channel.TextChannelCreateEvent;
+import discord4j.core.event.domain.channel.TextChannelDeleteEvent;
+import discord4j.core.event.domain.channel.TextChannelUpdateEvent;
+import discord4j.core.event.domain.channel.TypingStartEvent;
+import discord4j.core.event.domain.channel.VoiceChannelCreateEvent;
+import discord4j.core.event.domain.channel.VoiceChannelDeleteEvent;
+import discord4j.core.event.domain.channel.VoiceChannelUpdateEvent;
+import discord4j.core.event.domain.guild.BanEvent;
+import discord4j.core.event.domain.guild.EmojisUpdateEvent;
+import discord4j.core.event.domain.guild.GuildCreateEvent;
+import discord4j.core.event.domain.guild.GuildDeleteEvent;
+import discord4j.core.event.domain.guild.GuildUpdateEvent;
+import discord4j.core.event.domain.guild.IntegrationsUpdateEvent;
+import discord4j.core.event.domain.guild.MemberChunkEvent;
+import discord4j.core.event.domain.guild.MemberJoinEvent;
+import discord4j.core.event.domain.guild.MemberLeaveEvent;
+import discord4j.core.event.domain.guild.MemberUpdateEvent;
+import discord4j.core.event.domain.guild.UnbanEvent;
+import discord4j.core.event.domain.lifecycle.ConnectEvent;
+import discord4j.core.event.domain.lifecycle.DisconnectEvent;
+import discord4j.core.event.domain.lifecycle.ReadyEvent;
+import discord4j.core.event.domain.lifecycle.ReconnectEvent;
+import discord4j.core.event.domain.lifecycle.ReconnectFailEvent;
+import discord4j.core.event.domain.lifecycle.ReconnectStartEvent;
+import discord4j.core.event.domain.lifecycle.ResumeEvent;
+import discord4j.core.event.domain.message.MessageBulkDeleteEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
+import discord4j.core.event.domain.message.MessageDeleteEvent;
+import discord4j.core.event.domain.message.MessageUpdateEvent;
+import discord4j.core.event.domain.message.ReactionAddEvent;
+import discord4j.core.event.domain.message.ReactionRemoveAllEvent;
+import discord4j.core.event.domain.message.ReactionRemoveEvent;
+import discord4j.core.event.domain.role.RoleCreateEvent;
+import discord4j.core.event.domain.role.RoleDeleteEvent;
+import discord4j.core.event.domain.role.RoleUpdateEvent;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.channel.MessageChannel;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 
-@Component
+@Service
 public class CustomListener<T extends Event> implements EventListener<T> {
 
+    @Autowired
+    private MessageHandler messageHandler;
+
     @Override
+    @SuppressWarnings("unchecked")
     public Class<T> getEventType() {
-       
+        
         return (Class<T>) MessageCreateEvent.class;
     }
 
+    public CustomListener(){
+        System.out.println("customer listener");
+    }
 
     @Override
     public void execute(final T event) {
-    
+    hookOnEvent(event);
      
-            final Message message = ((MessageCreateEvent)event).getMessage();
+           /* final Message message = ((MessageCreateEvent)event).getMessage();
             if ("!ping".equals(message.getContent())) {
               final MessageChannel channel = message.getChannel().block();
 
               channel.createMessage( message.getGuild().block().toString()).block();
               channel.createMessage(message.getAuthor().get().toString()).block();
-            }
+            }*/
     }
-   /* public Mono<Void> onPresenceUpdate(PresenceUpdateEvent event) {
+   public Mono<Void> onPresenceUpdate(PresenceUpdateEvent event) {
         return Mono.empty();
     }
     
@@ -128,6 +187,7 @@ public class CustomListener<T extends Event> implements EventListener<T> {
     }
 
     public Mono<Void> onTextChannelUpdate(TextChannelUpdateEvent event) {
+
         return Mono.empty();
     }
 
@@ -172,6 +232,7 @@ public class CustomListener<T extends Event> implements EventListener<T> {
     }
 
     public Mono<Void> onMemberChunk(MemberChunkEvent event) {
+        
         return Mono.empty();
     }
 
@@ -224,7 +285,7 @@ public class CustomListener<T extends Event> implements EventListener<T> {
     }
 
     public Mono<Void> onMessageCreate(MessageCreateEvent event) {
-            System.out.println(event.getMessage().getContent());
+           messageHandler.messageCreated(event);
         return Mono.empty();
     }
 
@@ -325,6 +386,6 @@ public class CustomListener<T extends Event> implements EventListener<T> {
         else if (event instanceof RoleUpdateEvent) return onRoleUpdate((RoleUpdateEvent) event);
 
         return Mono.empty();
-    }*/
+    }
 
 }
