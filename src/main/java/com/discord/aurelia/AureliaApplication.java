@@ -20,6 +20,8 @@ public class AureliaApplication  implements CommandLineRunner{
 		EventListener<MessageCreateEvent> listener = new CustomListener<>();
 		gateway.getEventDispatcher().on(listener.getEventType()).subscribe(listener::execute);
 		gateway.onDisconnect().block();*/
+		//a
+		
 	}
 
 	
