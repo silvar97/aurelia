@@ -13,7 +13,7 @@ public class MessageHandler {
     }
 
     public void messageCreated(MessageCreateEvent event){
-            event.getMessage().getChannel().block().createMessage("hallo noob").block();
+            event.getMessage().getChannel().block().createMessage("wer ist der größte noob").block();
     }
 
 }
