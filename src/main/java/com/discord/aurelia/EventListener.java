@@ -1,8 +1,8 @@
-package com.discord.aurelia;
+// package com.discord.aurelia;
 
-import discord4j.core.event.domain.Event;
+// import discord4j.core.event.domain.Event;
 
-public interface EventListener<T extends Event> {
-    Class<T> getEventType();
-    void execute(T event);
-}
+// public interface EventListener<T extends Event> {
+//     Class<T> getEventType();
+//     void execute(T event);
+// }
