@@ -1,4 +1,4 @@
-package com.discord.aurelia;
+package com.discord.aurelia.configuration;
 
 import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.MessageHandler;
@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 
 import discord4j.core.DiscordClient;
 import discord4j.core.GatewayDiscordClient;
-import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.guild.EmojisUpdateEvent;
 import discord4j.core.event.domain.message.MessageEvent;
 
@@ -26,10 +25,9 @@ public class Config {
 
     @Bean
     public GatewayDiscordClient aureliaBot(){
-      //  final String token = "NzYwNDY2MjczODIxMzkyODk2.X3MdaA.btlY8WQpwoB35mnziSNKj7kbg7g";
         final DiscordClient client = DiscordClient.create(token);
         final GatewayDiscordClient gateway = client.login().block();
-      //  EventListener<MessageCreateEvent> listener = new CustomListener<>();
+        
         gateway.getEventDispatcher().on(messageHandler.getEventType()).subscribe(messageHandler::execute);
         gateway.getEventDispatcher().on(emojiHandler.getEventType()).subscribe(emojiHandler::execute);
         gateway.onDisconnect().block();

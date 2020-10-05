@@ -1,12 +1,15 @@
 package com.discord.aurelia.event;
 
 import org.springframework.core.GenericTypeResolver;
+import org.springframework.stereotype.Component;
 
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.guild.GuildCreateEvent;
 import discord4j.core.event.domain.guild.GuildDeleteEvent;
 import discord4j.core.event.domain.guild.GuildUpdateEvent;
+import discord4j.discordjson.json.gateway.GuildBanRemove;
 
+@Component
 public class GuildHandler<T extends Event> implements EventListenerInterface<T> {
     @Override
     @SuppressWarnings("unchecked")
@@ -36,11 +39,9 @@ public class GuildHandler<T extends Event> implements EventListenerInterface<T> 
             onGuildDelete((GuildDeleteEvent) event);
         else if (event instanceof GuildUpdateEvent)
             onGuildUpdate((GuildUpdateEvent) event);
+            
     }
     // addHandler(GuildBanRemove.class, GuildDispatchHandlers::guildBanRemove);
-    // addHandler(GuildCreate.class, GuildDispatchHandlers::guildCreate);
-    // addHandler(GuildDelete.class, GuildDispatchHandlers::guildDelete);
-    // addHandler(GuildEmojisUpdate.class,
     // GuildDispatchHandlers::guildEmojisUpdate);
     // addHandler(GuildIntegrationsUpdate.class,
     // GuildDispatchHandlers::guildIntegrationsUpdate);
