@@ -1,10 +1,11 @@
 
 package com.discord.aurelia.dao;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import discord4j.common.util.Snowflake;
@@ -12,6 +13,7 @@ import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.Guild;
 
 @Repository
+@CacheConfig(cacheNames = {"GUILDS"})
 public class GuildDaoServiceImpl implements GuildDao {
 
     
@@ -23,13 +25,15 @@ public class GuildDaoServiceImpl implements GuildDao {
     }
 
     @Override //@Cache
+    @Cacheable(unless = "#result == null")
     public Optional<Guild> getGuild(String guildName) {
         return null;
     }
 
     @Override //@Cache
+    @Cacheable(unless = "#result == null")
     public Optional<Guild> getGuild(Snowflake guildId) {
-        return null;
+        return  Optional.ofNullable(gateway.getGuildById(guildId).block());
     }
 
 

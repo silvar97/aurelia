@@ -1,9 +1,15 @@
 package com.discord.aurelia.configuration;
 
+import java.util.concurrent.TimeUnit;
+
 import com.discord.aurelia.event.MessageHandler;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.CaffeineSpec;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,8 +27,9 @@ import discord4j.rest.entity.RestChannel;
 import reactor.core.publisher.Mono;
 
 @Configuration
-public class Config {
+public class AureliaBotConfig {
 
+    @Autowired
     @Value("${token}")
     private String token;
     @Autowired
@@ -35,19 +42,19 @@ public class Config {
         final DiscordClient client = DiscordClient.create(token);
         final GatewayDiscordClient gateway = client.login().block();
         gateway.getEventDispatcher().on(messageHandler.getEventType()).subscribe(messageHandler::execute);
-      
-        // gateway.getGuilds().collectList().block().forEach(g->{
-        //     g.getChannels().collectList().block().forEach(c->{
-        //    c.getRestChannel().create     
-        //     });
-        // });
-    //    Mono<Message> msg= gateway.getMessageById(Snowflake.of(759138832896884777l), Snowflake.of(759511710087774269l));
+    //     // gateway.getGuilds().collectList().block().forEach(g->{
+    //     //     g.getChannels().collectList().block().forEach(c->{
+    //     //    c.getRestChannel().create     
+    //     //     });
+    //     // });
+    // //    Mono<Message> msg= gateway.getMessageById(Snowflake.of(759138832896884777l), Snowflake.of(759511710087774269l));
         
-    //    msg.block().getChannel().block().createMessage("Hallo").block();
-    // MessageCreateRequest    msgCreate = new MessageCreateRe
-      gateway.getChannelById(Snowflake.of(759138832896884779l)).block().getRestChannel().createMessage("ach lass mich einfach bin weg").block();
-    gateway.onDisconnect().block();
+    // //    msg.block().getChannel().block().createMessage("Hallo").block();
+    // // MessageCreateRequest    msgCreate = new MessageCreateRe
+    //   gateway.getChannelById(Snowflake.of(759138832896884779l)).block().getRestChannel().createMessage("ach lass mich einfach bin weg").block();
 
+
+    gateway.onDisconnect().block();
         return gateway;
     }
 
