@@ -28,7 +28,7 @@ public class Config {
     @Autowired
     private  MessageHandler<Event> messageHandler;
     //@Autowired
-   // private EmojiHandler<EmojisUpdateEvent> emojiHandler;
+    // private EmojiHandler<EmojisUpdateEvent> emojiHandler;
 
     @Bean
     public GatewayDiscordClient aureliaBot(){
