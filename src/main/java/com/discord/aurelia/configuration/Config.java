@@ -1,6 +1,5 @@
 package com.discord.aurelia.configuration;
 
-import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.MessageHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +7,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClient;
 import discord4j.core.GatewayDiscordClient;
-import discord4j.core.event.domain.guild.EmojisUpdateEvent;
+import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.message.MessageEvent;
+import discord4j.core.object.entity.Message;
+import discord4j.core.object.entity.channel.GuildChannel;
+import discord4j.core.object.entity.channel.MessageChannel;
+import discord4j.core.object.entity.channel.TextChannel;
+import discord4j.discordjson.json.gateway.ImmutableChannelCreate;
+import discord4j.rest.entity.RestChannel;
+import reactor.core.publisher.Mono;
 
 @Configuration
 public class Config {
@@ -19,19 +26,28 @@ public class Config {
     @Value("${token}")
     private String token;
     @Autowired
-    private  MessageHandler<MessageEvent> messageHandler;
-    @Autowired
-    private EmojiHandler<EmojisUpdateEvent> emojiHandler;
+    private  MessageHandler<Event> messageHandler;
+    //@Autowired
+   // private EmojiHandler<EmojisUpdateEvent> emojiHandler;
 
     @Bean
     public GatewayDiscordClient aureliaBot(){
         final DiscordClient client = DiscordClient.create(token);
         final GatewayDiscordClient gateway = client.login().block();
-        
         gateway.getEventDispatcher().on(messageHandler.getEventType()).subscribe(messageHandler::execute);
-        gateway.getEventDispatcher().on(emojiHandler.getEventType()).subscribe(emojiHandler::execute);
-        gateway.onDisconnect().block();
+      
+        // gateway.getGuilds().collectList().block().forEach(g->{
+        //     g.getChannels().collectList().block().forEach(c->{
+        //    c.getRestChannel().create     
+        //     });
+        // });
+    //    Mono<Message> msg= gateway.getMessageById(Snowflake.of(759138832896884777l), Snowflake.of(759511710087774269l));
         
+    //    msg.block().getChannel().block().createMessage("Hallo").block();
+    // MessageCreateRequest    msgCreate = new MessageCreateRe
+      gateway.getChannelById(Snowflake.of(759138832896884779l)).block().getRestChannel().createMessage("ach lass mich einfach bin weg").block();
+    gateway.onDisconnect().block();
+
         return gateway;
     }
 

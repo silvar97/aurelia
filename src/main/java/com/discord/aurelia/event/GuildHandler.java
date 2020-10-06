@@ -9,13 +9,13 @@ import discord4j.core.event.domain.guild.GuildDeleteEvent;
 import discord4j.core.event.domain.guild.GuildUpdateEvent;
 import discord4j.discordjson.json.gateway.GuildBanRemove;
 
-@Component
+//@Component
 public class GuildHandler<T extends Event> implements EventListenerInterface<T> {
     @Override
     @SuppressWarnings("unchecked")
     public Class<T> getEventType() {
 
-        return (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), MessageHandler.class);
+        return (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), GuildHandler.class);
     }
 
     @Override

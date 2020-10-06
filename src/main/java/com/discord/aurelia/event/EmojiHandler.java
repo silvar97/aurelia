@@ -10,7 +10,7 @@ import discord4j.core.event.domain.guild.EmojisUpdateEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.event.domain.message.MessageEvent;
 
-@Component
+//@Component
 public class EmojiHandler<T extends Event> implements EventListenerInterface<T>{
 
     @Override
