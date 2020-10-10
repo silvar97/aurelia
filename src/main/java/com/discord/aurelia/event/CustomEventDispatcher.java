@@ -2,6 +2,9 @@ package com.discord.aurelia.event;
 
 
 
+import java.util.List;
+
+import com.discord.aurelia.command.Command;
 import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.command.CommandInterface;
 
@@ -80,7 +83,7 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     private GuildHandler<GuildEvent> guildHandler;
     @Autowired
     @Qualifier("commandCollection")
-    private CommandCollection<T> commands;
+    private CommandCollection commands;
 
 
     @Override
@@ -280,7 +283,12 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onMessageCreate(MessageCreateEvent event) {
-        commands.getCommands().get("!ping").execute(event);
+        List<Command<Event>> commandList = commands.getCommands();
+        for(Command c: commandList){
+            if(c.getCommand().equals("!ping")){
+                c.getHandler().execute(event);
+            }
+        }
         return Mono.empty();
     }
 

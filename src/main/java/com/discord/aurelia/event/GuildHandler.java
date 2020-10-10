@@ -27,6 +27,8 @@ public class GuildHandler<T extends GuildEvent>  implements HandlerInterface<T>{
     // private void onGuildUpdate(GuildUpdateEvent event) {
     // }
 
+  
+
     // private void onGuildDelete(GuildDeleteEvent event) {
     // }
 

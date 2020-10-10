@@ -28,7 +28,7 @@ import discord4j.discordjson.json.MessageData;
 import discord4j.rest.util.Color;
 
 @Component
-@Qualifier("messageHandler")
+
 public class MessageHandler<T extends Event> implements CommandInterface<MessageEvent>{
 
 public MessageHandler(){
@@ -63,6 +63,7 @@ public MessageHandler(){
 
         //   }
            // commands.getCommands().get("!ping").
+           event.getMessage().getChannel().block().createMessage("endlich").block();
        
     }
 
@@ -75,6 +76,10 @@ public MessageHandler(){
        else if (event instanceof MessageCreateEvent) onMessageCreate((MessageCreateEvent) event);
        else if (event instanceof MessageDeleteEvent) onMessageDelete((MessageDeleteEvent) event);
        else if (event instanceof MessageUpdateEvent) onMessageUpdate((MessageUpdateEvent) event);
+   }
+   @Override
+   public String toString(){
+       return "messageHandler";
    }
        
     }

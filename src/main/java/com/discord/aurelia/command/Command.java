@@ -8,14 +8,14 @@ import discord4j.core.event.domain.Event;
 public class Command<T extends Event>{
     
     private String command;
-    private CommandInterface<T> event;
+    private CommandInterface<T> handler;
 
     public Command(){
     }
 
-    public Command(String command, CommandInterface<T> event) {
+    public Command(String command, CommandInterface<T> handler) {
         this.command = command;
-        this.event = event;
+        this.handler = handler;
     }
 
     public String getCommand() {
@@ -26,12 +26,12 @@ public class Command<T extends Event>{
         this.command = command;
     }
 
-    public CommandInterface<T> getEvent() {
-        return event;
+    public CommandInterface<T> getHandler() {
+        return handler;
     }
 
-    public void setEvent(CommandInterface<T> event) {
-        this.event = event;
+    public void setHandler(CommandInterface<T> handler) {
+        this.handler = handler;
     }
 
 }
