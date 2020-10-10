@@ -2,6 +2,7 @@ package com.discord.aurelia.configuration;
 
 import java.util.concurrent.TimeUnit;
 
+import com.discord.aurelia.event.CustomEventDispatcher;
 import com.discord.aurelia.event.MessageHandler;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.CaffeineSpec;
@@ -12,6 +13,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClient;
@@ -29,19 +31,22 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class AureliaBotConfig {
 
-    @Autowired
     @Value("${token}")
     private String token;
+
     @Autowired
-    private  MessageHandler<Event> messageHandler;
+    private  CustomEventDispatcher<Event> customEventDispatcher;
     //@Autowired
    // private EmojiHandler<EmojisUpdateEvent> emojiHandler;
-
+public AureliaBotConfig(){
+    System.out.println("AureliaBotConfig created");
+}
     @Bean
+    @Primary
     public GatewayDiscordClient aureliaBot(){
         final DiscordClient client = DiscordClient.create(token);
         final GatewayDiscordClient gateway = client.login().block();
-        gateway.getEventDispatcher().on(messageHandler.getEventType()).subscribe(messageHandler::execute);
+        gateway.getEventDispatcher().on(customEventDispatcher.getEventType()).subscribe(customEventDispatcher::execute);
     //     // gateway.getGuilds().collectList().block().forEach(g->{
     //     //     g.getChannels().collectList().block().forEach(c->{
     //     //    c.getRestChannel().create     
@@ -53,6 +58,7 @@ public class AureliaBotConfig {
     // // MessageCreateRequest    msgCreate = new MessageCreateRe
     //   gateway.getChannelById(Snowflake.of(759138832896884779l)).block().getRestChannel().createMessage("ach lass mich einfach bin weg").block();
 
+    
 
     gateway.onDisconnect().block();
         return gateway;

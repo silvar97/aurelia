@@ -6,42 +6,43 @@ import org.springframework.stereotype.Component;
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.guild.GuildCreateEvent;
 import discord4j.core.event.domain.guild.GuildDeleteEvent;
+import discord4j.core.event.domain.guild.GuildEvent;
 import discord4j.core.event.domain.guild.GuildUpdateEvent;
 import discord4j.discordjson.json.gateway.GuildBanRemove;
 
-//@Component
-public class GuildHandler<T extends Event> implements EventListenerInterface<T> {
-    @Override
-    @SuppressWarnings("unchecked")
-    public Class<T> getEventType() {
+@Component
+public class GuildHandler<T extends GuildEvent>  implements HandlerInterface<T>{
 
-        return (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), GuildHandler.class);
+
+    public void handle(GuildUpdateEvent event){
+
     }
 
-    @Override
-    public void execute(Event event) {
-        hookOnEvent(event);
+    public void handle(GuildDeleteEvent event){
+        
     }
-
-    private void onGuildUpdate(GuildUpdateEvent event) {
+    public void handle(GuildCreateEvent event){
+        
     }
+    // private void onGuildUpdate(GuildUpdateEvent event) {
+    // }
 
-    private void onGuildDelete(GuildDeleteEvent event) {
-    }
+    // private void onGuildDelete(GuildDeleteEvent event) {
+    // }
 
-    private void onGuildCreate(GuildCreateEvent event) {
-    }
+    // private void onGuildCreate(GuildCreateEvent event) {
+    // }
 
-    private void hookOnEvent(Event event) {
-        if (event instanceof GuildCreateEvent)
-            onGuildCreate((GuildCreateEvent) event);
-        else if (event instanceof GuildDeleteEvent)
-            onGuildDelete((GuildDeleteEvent) event);
-        else if (event instanceof GuildUpdateEvent)
-            onGuildUpdate((GuildUpdateEvent) event);
+    // private void hookOnEvent(Event event) {
+    //     if (event instanceof GuildCreateEvent)
+    //         onGuildCreate((GuildCreateEvent) event);
+    //     else if (event instanceof GuildDeleteEvent)
+    //         onGuildDelete((GuildDeleteEvent) event);
+    //     else if (event instanceof GuildUpdateEvent)
+    //         onGuildUpdate((GuildUpdateEvent) event);
             
-    }
-    // addHandler(GuildBanRemove.class, GuildDispatchHandlers::guildBanRemove);
+    // }
+    // // addHandler(GuildBanRemove.class, GuildDispatchHandlers::guildBanRemove);
     // GuildDispatchHandlers::guildEmojisUpdate);
     // addHandler(GuildIntegrationsUpdate.class,
     // GuildDispatchHandlers::guildIntegrationsUpdate);
