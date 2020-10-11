@@ -2,6 +2,7 @@ package com.discord.aurelia.configuration;
 
 import java.util.concurrent.TimeUnit;
 
+import com.discord.aurelia.event.CustomEventDispatcher;
 import com.discord.aurelia.event.MessageHandler;
 import com.discord.aurelia.event.UserManagementHandler;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -13,6 +14,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClient;
@@ -32,24 +34,52 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class AureliaBotConfig {
 
-    @Autowired
     @Value("${token}")
     private String token;
+
     @Autowired
+<<<<<<< HEAD
     private  MessageHandler<Event> messageHandler;
     @Autowired
     private UserManagementHandler<Event> userManagementHandler;
     //@Autowired
     // private EmojiHandler<EmojisUpdateEvent> emojiHandler;
 
+=======
+    private  CustomEventDispatcher<Event> customEventDispatcher;
+    //@Autowired
+   // private EmojiHandler<EmojisUpdateEvent> emojiHandler;
+public AureliaBotConfig(){
+    System.out.println("AureliaBotConfig created");
+}
+>>>>>>> a4482ce72b82549b289a35066f1eb46063256025
     @Bean
+    @Primary
     public GatewayDiscordClient aureliaBot(){
         final DiscordClient client = DiscordClient.create(token);
         final GatewayDiscordClient gateway = client.login().block();
+<<<<<<< HEAD
         gateway.getEventDispatcher().on(messageHandler.getEventType()).subscribe(messageHandler::execute);
         gateway.getEventDispatcher().on(userManagementHandler.getEventType()).subscribe(userManagementHandler::execute);
         gateway.updatePresence(Presence.doNotDisturb(Activity.watching("Habib beim Duschen"))).block();
         gateway.onDisconnect().block();
+=======
+        gateway.getEventDispatcher().on(customEventDispatcher.getEventType()).subscribe(customEventDispatcher::execute);
+    //     // gateway.getGuilds().collectList().block().forEach(g->{
+    //     //     g.getChannels().collectList().block().forEach(c->{
+    //     //    c.getRestChannel().create     
+    //     //     });
+    //     // });
+    // //    Mono<Message> msg= gateway.getMessageById(Snowflake.of(759138832896884777l), Snowflake.of(759511710087774269l));
+        
+    // //    msg.block().getChannel().block().createMessage("Hallo").block();
+    // // MessageCreateRequest    msgCreate = new MessageCreateRe
+    //   gateway.getChannelById(Snowflake.of(759138832896884779l)).block().getRestChannel().createMessage("ach lass mich einfach bin weg").block();
+
+    
+
+    gateway.onDisconnect().block();
+>>>>>>> a4482ce72b82549b289a35066f1eb46063256025
         return gateway;
     }
 

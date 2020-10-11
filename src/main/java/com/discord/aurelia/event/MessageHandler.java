@@ -1,5 +1,11 @@
 package com.discord.aurelia.event;
 
+import com.discord.aurelia.command.Command;
+import com.discord.aurelia.command.CommandCollection;
+import com.discord.aurelia.command.CommandInterface;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.core.GenericTypeResolver;
@@ -10,6 +16,7 @@ import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.message.MessageBulkDeleteEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.event.domain.message.MessageDeleteEvent;
+import discord4j.core.event.domain.message.MessageEvent;
 import discord4j.core.event.domain.message.MessageUpdateEvent;
 import discord4j.core.object.Embed;
 import discord4j.core.spec.EmbedCreateSpec;
@@ -21,17 +28,17 @@ import discord4j.discordjson.json.MessageData;
 import discord4j.rest.util.Color;
 
 @Component
-public class MessageHandler<T extends Event> implements EventListenerInterface<T> {
-    @Override
-    @SuppressWarnings("unchecked")
-    public Class<T> getEventType() {
 
-        return (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), MessageHandler.class);
-    }
+public class MessageHandler<T extends Event> implements CommandInterface<MessageEvent>{
+
+public MessageHandler(){
+    System.out.println("MessageHandler created");
+}
+
 
     @Override
     public void execute(Event event) {
-        hookOnEvent(event);
+      hookOnEvent(event);
     }
 
     private void onMessageUpdate(MessageUpdateEvent event) {
@@ -45,10 +52,21 @@ public class MessageHandler<T extends Event> implements EventListenerInterface<T
     }
 
     private void onMessageCreate(MessageCreateEvent event) {
+<<<<<<< HEAD
         if (event.getMessage().getContent().equals("!a")) {
          
+=======
+        // if (event.getMessage().getContent().equals("!user")) {
+        //     event.getMessage().getChannel().block().createEmbed(e -> {
+        //         e.setAuthor(event.getMember().get().getUsername(), event.getMember().get().getDefaultAvatarUrl(), event.getMember().get().getAvatarUrl());
+        //  e.setColor(Color.RED);
+        //  e.addField("wer ist der größte noob?", "das weiß jeder",true);
+        //  e.setDescription("description");
+>>>>>>> a4482ce72b82549b289a35066f1eb46063256025
     
+        //     }).block();
 
+<<<<<<< HEAD
             event.getMessage().getChannel().block().createEmbed(e -> {
                 e.setAuthor(event.getMember().get().getUsername(), event.getMember().get().getDefaultAvatarUrl(), event.getMember().get().getAvatarUrl());
          e.setColor(Color.BLUE);
@@ -66,6 +84,12 @@ public class MessageHandler<T extends Event> implements EventListenerInterface<T
             
             
     }  
+=======
+        //   }
+           // commands.getCommands().get("!ping").
+           event.getMessage().getChannel().block().createMessage("endlich").block();
+       
+>>>>>>> a4482ce72b82549b289a35066f1eb46063256025
     }
 
     private void onMessageBulkDelete(MessageBulkDeleteEvent event) {
@@ -77,6 +101,10 @@ public class MessageHandler<T extends Event> implements EventListenerInterface<T
        else if (event instanceof MessageCreateEvent) onMessageCreate((MessageCreateEvent) event);
        else if (event instanceof MessageDeleteEvent) onMessageDelete((MessageDeleteEvent) event);
        else if (event instanceof MessageUpdateEvent) onMessageUpdate((MessageUpdateEvent) event);
+   }
+   @Override
+   public String toString(){
+       return "messageHandler";
    }
        
     }
