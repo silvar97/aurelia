@@ -3,6 +3,7 @@ package com.discord.aurelia.configuration;
 import java.util.concurrent.TimeUnit;
 
 import com.discord.aurelia.event.MessageHandler;
+import com.discord.aurelia.event.UserManagementHandler;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.CaffeineSpec;
 
@@ -22,6 +23,8 @@ import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.channel.GuildChannel;
 import discord4j.core.object.entity.channel.MessageChannel;
 import discord4j.core.object.entity.channel.TextChannel;
+import discord4j.core.object.presence.Activity;
+import discord4j.core.object.presence.Presence;
 import discord4j.discordjson.json.gateway.ImmutableChannelCreate;
 import discord4j.rest.entity.RestChannel;
 import reactor.core.publisher.Mono;
@@ -34,6 +37,8 @@ public class AureliaBotConfig {
     private String token;
     @Autowired
     private  MessageHandler<Event> messageHandler;
+    @Autowired
+    private UserManagementHandler<Event> userManagementHandler;
     //@Autowired
     // private EmojiHandler<EmojisUpdateEvent> emojiHandler;
 
@@ -42,19 +47,9 @@ public class AureliaBotConfig {
         final DiscordClient client = DiscordClient.create(token);
         final GatewayDiscordClient gateway = client.login().block();
         gateway.getEventDispatcher().on(messageHandler.getEventType()).subscribe(messageHandler::execute);
-    //     // gateway.getGuilds().collectList().block().forEach(g->{
-    //     //     g.getChannels().collectList().block().forEach(c->{
-    //     //    c.getRestChannel().create     
-    //     //     });
-    //     // });
-    // //    Mono<Message> msg= gateway.getMessageById(Snowflake.of(759138832896884777l), Snowflake.of(759511710087774269l));
-        
-    // //    msg.block().getChannel().block().createMessage("Hallo").block();
-    // // MessageCreateRequest    msgCreate = new MessageCreateRe
-    //   gateway.getChannelById(Snowflake.of(759138832896884779l)).block().getRestChannel().createMessage("ach lass mich einfach bin weg").block();
-
-
-    gateway.onDisconnect().block();
+        gateway.getEventDispatcher().on(userManagementHandler.getEventType()).subscribe(userManagementHandler::execute);
+        gateway.updatePresence(Presence.doNotDisturb(Activity.watching("Habib beim Duschen"))).block();
+        gateway.onDisconnect().block();
         return gateway;
     }
 

@@ -45,19 +45,27 @@ public class MessageHandler<T extends Event> implements EventListenerInterface<T
     }
 
     private void onMessageCreate(MessageCreateEvent event) {
-        if (event.getMessage().getContent().equals("!user")) {
+        if (event.getMessage().getContent().equals("!a")) {
          
     
 
             event.getMessage().getChannel().block().createEmbed(e -> {
                 e.setAuthor(event.getMember().get().getUsername(), event.getMember().get().getDefaultAvatarUrl(), event.getMember().get().getAvatarUrl());
-         e.setColor(Color.RED);
-         e.addField("wer ist der größte noob?", "das weiß jeder",true);
-         e.setDescription("description");
+         e.setColor(Color.BLUE);
+         e.addField("Test 1", "Habib 1",true);
+         e.addField("Test 2", "Habib 2", true);
+         e.setDescription("Habib gib ruhe!");
     
             }).block();
 
           }
+        if (event.getMessage().getContent().equals("!test")){
+
+            
+            
+            
+            
+    }  
     }
 
     private void onMessageBulkDelete(MessageBulkDeleteEvent event) {
