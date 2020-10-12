@@ -16,11 +16,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.message.MessageEvent;
 
-@Configuration
+@Component
 public class CommandCollection {
 
     private List<Command<Event>> commands = new ArrayList<>();
