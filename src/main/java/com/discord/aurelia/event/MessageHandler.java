@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.core.GenericTypeResolver;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ import discord4j.discordjson.json.MessageData;
 import discord4j.rest.util.Color;
 
 @Component
-
+@Order(1)
 public class MessageHandler<T extends Event> implements CommandInterface<MessageEvent>{
 
 public MessageHandler(){

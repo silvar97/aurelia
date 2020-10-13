@@ -1,7 +1,5 @@
 package com.discord.aurelia.event;
 
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.config.CacheManagementConfigUtils;
 import org.springframework.core.GenericTypeResolver;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import discord4j.common.util.Snowflake;
@@ -81,6 +80,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service(value = "customEventDispatcher")
+@Order(2)
 public class CustomEventDispatcher<T extends Event> implements EventListenerInterface<T> {
 
     @Autowired
@@ -218,7 +218,7 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onEmojisUpdate(EmojisUpdateEvent event) {
-            emojiHandler.handle(event);
+        emojiHandler.handle(event);
         return Mono.empty();
     }
 
@@ -291,35 +291,27 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onMessageBulkDelete(MessageBulkDeleteEvent event) {
-      
+
         return Mono.empty();
     }
 
     public Mono<Void> onMessageCreate(MessageCreateEvent event) {
-        if(!event.getMessage().getContent().equals("!ping")){
+        if (!event.getMessage().getContent().equals("!ping")) {
             return null;
         }
-       
-       // gateway.getGuilds();
-
-      event.getMessage().getChannel().block().createMessage("pong").block();
-
-        // List<Command<Event>> commandList = commands.getCommands();
-        // for(Command c: commandList){
-        //     if(c.getCommand().equals("!ping")){
-        //         c.getHandler().execute(event);
-        //     }
-        // }
+        channelSerive.getChannel(event.getMessage().getChannel().block().getId());
+        Cache nativeCoffeeCache = (Cache) cacheManager.getCache("CHANNELS").getNativeCache();
+        System.out.println(nativeCoffeeCache.stats());
         return Mono.empty();
     }
 
     public Mono<Void> onMessageDelete(MessageDeleteEvent event) {
-      
+
         return Mono.empty();
     }
 
     public Mono<Void> onMessageUpdate(MessageUpdateEvent event) {
-      
+
         return Mono.empty();
     }
 

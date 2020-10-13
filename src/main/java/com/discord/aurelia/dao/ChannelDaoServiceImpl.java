@@ -8,7 +8,10 @@ import com.discord.aurelia.dao.ChannelDao;
 import com.github.benmanes.caffeine.cache.Cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -17,10 +20,12 @@ import discord4j.core.GatewayDiscordClient;
 import discord4j.core.object.entity.channel.Channel;
 
 @Repository
+@Order(3)
+@CacheConfig(cacheNames = {"CHANNELS"})
 public class ChannelDaoServiceImpl implements ChannelDao {
 
-   // @Autowired
-   // private GatewayDiscordClient gateway;
+  
+    private GatewayDiscordClient gateway;
 
     public ChannelDaoServiceImpl(){
         System.out.println("ChannelDaoServiceImpl created");
@@ -33,10 +38,14 @@ public class ChannelDaoServiceImpl implements ChannelDao {
     }
 
     @Override
-    @Cacheable
+    @Cacheable(value = "CHANNELS")
     public Optional<Channel> getChannel(Snowflake channelId) {
-        //Optional<Channel> c =  Optional.ofNullable(gateway.getChannelById(channelId).block());
-        return null;//c;
+      Optional<Channel> c =  Optional.ofNullable(gateway.getChannelById(channelId).block());
+        return c;
+    }
+    @Autowired
+    public void setGateway(GatewayDiscordClient gateway){
+        this.gateway = gateway;
     }
     
 }
