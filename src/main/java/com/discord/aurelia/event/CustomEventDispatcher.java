@@ -3,16 +3,24 @@ package com.discord.aurelia.event;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import com.discord.aurelia.command.Command;
 import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.command.CommandInterface;
+import com.discord.aurelia.configuration.CacheManagerConfig;
+import com.discord.aurelia.dao.ChannelDao;
+import com.github.benmanes.caffeine.cache.Cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.config.CacheManagementConfigUtils;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.stereotype.Service;
 
+import discord4j.common.util.Snowflake;
+import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.PresenceUpdateEvent;
 import discord4j.core.event.domain.UserUpdateEvent;
@@ -68,11 +76,11 @@ import discord4j.core.event.domain.message.ReactionRemoveEvent;
 import discord4j.core.event.domain.role.RoleCreateEvent;
 import discord4j.core.event.domain.role.RoleDeleteEvent;
 import discord4j.core.event.domain.role.RoleUpdateEvent;
-
+import discord4j.core.object.entity.channel.Channel;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Service
+@Service(value = "customEventDispatcher")
 public class CustomEventDispatcher<T extends Event> implements EventListenerInterface<T> {
 
     @Autowired
@@ -84,7 +92,12 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     @Autowired
     @Qualifier("commandCollection")
     private CommandCollection commands;
-
+    @Autowired
+    private ChannelDao channelSerive;
+    @Autowired
+    private CacheManager cacheManager;
+    // @Autowired
+    // private GatewayDiscordClient gateway;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -283,12 +296,20 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onMessageCreate(MessageCreateEvent event) {
-        List<Command<Event>> commandList = commands.getCommands();
-        for(Command c: commandList){
-            if(c.getCommand().equals("!ping")){
-                c.getHandler().execute(event);
-            }
+        if(!event.getMessage().getContent().equals("!ping")){
+            return null;
         }
+       
+       // gateway.getGuilds();
+
+      event.getMessage().getChannel().block().createMessage("pong").block();
+
+        // List<Command<Event>> commandList = commands.getCommands();
+        // for(Command c: commandList){
+        //     if(c.getCommand().equals("!ping")){
+        //         c.getHandler().execute(event);
+        //     }
+        // }
         return Mono.empty();
     }
 

@@ -17,8 +17,8 @@ import discord4j.core.object.entity.Guild;
 public class GuildDaoServiceImpl implements GuildDao {
 
     
-    @Autowired
-    GatewayDiscordClient gateway;
+   // @Autowired
+    //GatewayDiscordClient gateway;
 
     public GuildDaoServiceImpl(){
 
@@ -33,7 +33,7 @@ public class GuildDaoServiceImpl implements GuildDao {
     @Override //@Cache
     @Cacheable(unless = "#result == null")
     public Optional<Guild> getGuild(Snowflake guildId) {
-        return  Optional.ofNullable(gateway.getGuildById(guildId).block());
+        return null;// Optional.ofNullable(gateway.getGuildById(guildId).block());
     }
 
 
