@@ -38,32 +38,17 @@ public class AureliaBotConfig {
     private String token;
 
     @Autowired
-<<<<<<< HEAD
-    private  MessageHandler<Event> messageHandler;
-    @Autowired
-    private UserManagementHandler<Event> userManagementHandler;
-    //@Autowired
-    // private EmojiHandler<EmojisUpdateEvent> emojiHandler;
-
-=======
     private  CustomEventDispatcher<Event> customEventDispatcher;
     //@Autowired
    // private EmojiHandler<EmojisUpdateEvent> emojiHandler;
 public AureliaBotConfig(){
     System.out.println("AureliaBotConfig created");
 }
->>>>>>> a4482ce72b82549b289a35066f1eb46063256025
     @Bean
     @Primary
     public GatewayDiscordClient aureliaBot(){
         final DiscordClient client = DiscordClient.create(token);
         final GatewayDiscordClient gateway = client.login().block();
-<<<<<<< HEAD
-        gateway.getEventDispatcher().on(messageHandler.getEventType()).subscribe(messageHandler::execute);
-        gateway.getEventDispatcher().on(userManagementHandler.getEventType()).subscribe(userManagementHandler::execute);
-        gateway.updatePresence(Presence.doNotDisturb(Activity.watching("Habib beim Duschen"))).block();
-        gateway.onDisconnect().block();
-=======
         gateway.getEventDispatcher().on(customEventDispatcher.getEventType()).subscribe(customEventDispatcher::execute);
     //     // gateway.getGuilds().collectList().block().forEach(g->{
     //     //     g.getChannels().collectList().block().forEach(c->{
@@ -79,7 +64,6 @@ public AureliaBotConfig(){
     
 
     gateway.onDisconnect().block();
->>>>>>> a4482ce72b82549b289a35066f1eb46063256025
         return gateway;
     }
 

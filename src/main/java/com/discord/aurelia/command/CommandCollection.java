@@ -35,7 +35,7 @@ public class CommandCollection {
 @PostConstruct
  public void init(){
      System.out.println(messageHandler.toString());
-    Command<Event> command = new Command("!ping", messageHandler);
+    Command<Event> command = new Command("!test", messageHandler);
     addCommand(command);
  }
 

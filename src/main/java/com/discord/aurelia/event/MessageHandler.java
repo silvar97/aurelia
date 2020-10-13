@@ -52,44 +52,19 @@ public MessageHandler(){
     }
 
     private void onMessageCreate(MessageCreateEvent event) {
-<<<<<<< HEAD
-        if (event.getMessage().getContent().equals("!a")) {
-         
-=======
         // if (event.getMessage().getContent().equals("!user")) {
         //     event.getMessage().getChannel().block().createEmbed(e -> {
         //         e.setAuthor(event.getMember().get().getUsername(), event.getMember().get().getDefaultAvatarUrl(), event.getMember().get().getAvatarUrl());
         //  e.setColor(Color.RED);
         //  e.addField("wer ist der größte noob?", "das weiß jeder",true);
         //  e.setDescription("description");
->>>>>>> a4482ce72b82549b289a35066f1eb46063256025
     
         //     }).block();
 
-<<<<<<< HEAD
-            event.getMessage().getChannel().block().createEmbed(e -> {
-                e.setAuthor(event.getMember().get().getUsername(), event.getMember().get().getDefaultAvatarUrl(), event.getMember().get().getAvatarUrl());
-         e.setColor(Color.BLUE);
-         e.addField("Test 1", "Habib 1",true);
-         e.addField("Test 2", "Habib 2", true);
-         e.setDescription("Habib gib ruhe!");
-    
-            }).block();
-
-          }
-        if (event.getMessage().getContent().equals("!test")){
-
-            
-            
-            
-            
-    }  
-=======
         //   }
            // commands.getCommands().get("!ping").
-           event.getMessage().getChannel().block().createMessage("endlich").block();
+           event.getMessage().getChannel().block().createMessage("test").block();
        
->>>>>>> a4482ce72b82549b289a35066f1eb46063256025
     }
 
     private void onMessageBulkDelete(MessageBulkDeleteEvent event) {

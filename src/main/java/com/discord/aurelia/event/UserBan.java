@@ -11,6 +11,7 @@ import discord4j.core.event.domain.guild.BanEvent;
 import discord4j.core.object.Ban;
 
 
+
 @Component
 public class UserBan <T extends Event> implements EventListenerInterface<T> {
 
@@ -20,7 +21,7 @@ public class UserBan <T extends Event> implements EventListenerInterface<T> {
 
         return (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), UserManagementHandler.class);
     }
-
+ 
     @Override
     public void execute(T event) {
         hookOnEvent(event);
@@ -40,8 +41,8 @@ public class UserBan <T extends Event> implements EventListenerInterface<T> {
    // System.out.println(event.getCurrent().getAvatar()); //Reagiert auf Event
 //}
 
-    private Optional <String> getReason(){ 
 
-       
-    }
+
+
+
 }
