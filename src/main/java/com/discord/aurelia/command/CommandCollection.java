@@ -1,26 +1,16 @@
 package com.discord.aurelia.command;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import com.discord.aurelia.event.MessageHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import discord4j.core.event.domain.Event;
-import discord4j.core.event.domain.message.MessageEvent;
 
 @Component
 @Order(1)
@@ -29,7 +19,8 @@ public class CommandCollection {
     private List<Command<Event>> commands = new ArrayList<>();
 
     @Autowired
-    private CommandInterface<MessageEvent> messageHandler;
+    private CommandInterface<Event> messageHandler;
+    @Autowired CommandInterface<Event> emojiHandler;
 
     public CommandCollection(){
         System.out.println("commandCollection");
@@ -37,9 +28,10 @@ public class CommandCollection {
 
 @PostConstruct
  public void init(){
-     System.out.println(messageHandler.toString());
-    Command<Event> command = new Command("!ping", messageHandler);
+    Command<Event> command = new Command<Event>("!ping", messageHandler);
+    Command<Event> command1 = new Command<Event>("!emoji", emojiHandler);
     addCommand(command);
+    addCommand(command1);
  }
 
     public void addCommand(Command<Event> command) {

@@ -1,18 +1,13 @@
 package com.discord.aurelia.configuration;
 
 
-import com.discord.aurelia.event.CustomEventDispatcher;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.annotation.Order;
 
 import discord4j.core.DiscordClient;
 import discord4j.core.GatewayDiscordClient;
-import discord4j.core.event.domain.Event;
 
 @Configuration
 @Order(4)

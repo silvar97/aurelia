@@ -1,25 +1,16 @@
 package com.discord.aurelia.event;
 
-import java.util.List;
-import java.util.Optional;
 
-import com.discord.aurelia.command.Command;
 import com.discord.aurelia.command.CommandCollection;
-import com.discord.aurelia.command.CommandInterface;
-import com.discord.aurelia.configuration.CacheManagerConfig;
 import com.discord.aurelia.dao.ChannelDao;
-import com.github.benmanes.caffeine.cache.Cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.config.CacheManagementConfigUtils;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
-import discord4j.common.util.Snowflake;
-import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.PresenceUpdateEvent;
 import discord4j.core.event.domain.UserUpdateEvent;
@@ -75,7 +66,6 @@ import discord4j.core.event.domain.message.ReactionRemoveEvent;
 import discord4j.core.event.domain.role.RoleCreateEvent;
 import discord4j.core.event.domain.role.RoleDeleteEvent;
 import discord4j.core.event.domain.role.RoleUpdateEvent;
-import discord4j.core.object.entity.channel.Channel;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -299,9 +289,10 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
         if (!event.getMessage().getContent().equals("!ping")) {
             return null;
         }
-        channelSerive.getChannel(event.getMessage().getChannel().block().getId());
-        Cache nativeCoffeeCache = (Cache) cacheManager.getCache("CHANNELS").getNativeCache();
-        System.out.println(nativeCoffeeCache.stats());
+        // channelSerive.getChannel(event.getMessage().getChannel().block().getId());
+        // Cache nativeCoffeeCache = (Cache) cacheManager.getCache("CHANNELS").getNativeCache();
+        // System.out.println(nativeCoffeeCache.stats());
+        messageHandler.execute(event);
         return Mono.empty();
     }
 
