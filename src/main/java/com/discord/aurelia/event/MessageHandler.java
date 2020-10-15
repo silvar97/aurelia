@@ -3,10 +3,12 @@ import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.command.CommandInterface;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import discord4j.core.event.domain.Event;
+import discord4j.core.event.domain.guild.EmojisUpdateEvent;
 import discord4j.core.event.domain.message.MessageBulkDeleteEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.event.domain.message.MessageDeleteEvent;
@@ -15,17 +17,18 @@ import discord4j.core.event.domain.message.MessageUpdateEvent;
 
 @Component
 @Order(1)
-public class MessageHandler<T extends MessageEvent> implements CommandInterface<T>{
+public class MessageHandler<T extends MessageEvent> implements CommandInterface{
 
     @Autowired
     private CommandCollection commandCollection;
-
+    @Autowired
+    private ApplicationContext context;
 public MessageHandler(){
     System.out.println("MessageHandler created");
 }
 
     @Override
-    public void execute(T event) {
+    public void execute(Event event) {
       hookOnEvent(event);
     }
 
@@ -53,8 +56,10 @@ public MessageHandler(){
            // commands.getCommands().get("!ping").
          //  event.getMessage().getChannel().block().createMessage("endlich").block();
 
-            commandCollection.getCommands().stream().filter(c -> c.getCommand().equals(event.getMessage().getContent())).forEach(h->h.getHandler().execute(event));
-       
+         //   commandCollection.getCommands().stream().filter(c -> c.getCommand().equals(event.getMessage().getContent())).forEach(h->h.getHandler().execute(event));
+      context.getBean(commandCollection.getCommands().get("!ping").getHandlerclass()).execute(event);
+      context.getBean(commandCollection.getCommands().get("!guild").getHandlerclass()).execute(event);
+
     }
 
     private void onMessageBulkDelete(MessageBulkDeleteEvent event) {

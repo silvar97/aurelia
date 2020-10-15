@@ -2,25 +2,17 @@ package com.discord.aurelia.command;
 
 import discord4j.core.event.domain.Event;
 
-public class Command<T extends Event>{
+public class Command<T extends CommandInterface>{
 
     private String describtion;
     private String command;
-    private CommandInterface<T> handler;
-
+    private Class<? extends CommandInterface> handlerclass;
     public Command(){
     }
-    public Command(String describtion){
-        this.describtion = describtion;
-    }
-    public Command(String command, CommandInterface<T> handler) {
+  
+    public Command(String command,Class<? extends CommandInterface> handlerclass) {
         this.command = command;
-        this.handler = handler;
-    }
-    public Command(String command, CommandInterface<T> handler,String describtion) {
-        this.command = command;
-        this.handler = handler;
-        this.describtion= describtion;
+        this.handlerclass= handlerclass;
     }
 
     public String getCommand() {
@@ -30,21 +22,20 @@ public class Command<T extends Event>{
     public void setCommand(String command) {
         this.command = command;
     }
-
-    public CommandInterface<T> getHandler() {
-        return handler;
-    }
-
-    public void setHandler(CommandInterface<T> handler) {
-        this.handler = handler;
-    }
-
     public String getDescribtion() {
         return describtion;
     }
 
     public void setDescribtion(String describtion) {
         this.describtion = describtion;
+    }
+
+    public Class<? extends CommandInterface> getHandlerclass() {
+        return handlerclass;
+    }
+
+    public void setHandlerclass(Class<? extends CommandInterface> handlerclass) {
+        this.handlerclass = handlerclass;
     }
 
 }

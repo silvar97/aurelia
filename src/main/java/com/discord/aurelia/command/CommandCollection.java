@@ -1,26 +1,24 @@
 package com.discord.aurelia.command;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import com.discord.aurelia.event.EmojiHandler;
+import com.discord.aurelia.event.GuildHandler;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import discord4j.core.event.domain.Event;
 
 @Component
 @Order(1)
 public class CommandCollection {
 
-    private List<Command<Event>> commands = new ArrayList<>();
-
-    @Autowired
-    private CommandInterface<Event> messageHandler;
-    @Autowired CommandInterface<Event> emojiHandler;
+    private Map<String,Command<CommandInterface>> commands = new HashMap<>();
 
     public CommandCollection(){
         System.out.println("commandCollection");
@@ -28,17 +26,17 @@ public class CommandCollection {
 
 @PostConstruct
  public void init(){
-    Command<Event> command = new Command<Event>("!ping", messageHandler);
-    Command<Event> command1 = new Command<Event>("!emoji", emojiHandler);
-    addCommand(command);
-    addCommand(command1);
+      Command<CommandInterface> command = new Command<>("!ping",EmojiHandler.class);
+      Command<CommandInterface> command1 = new Command<>("!guild",GuildHandler.class);
+      addCommand(command);
+      addCommand(command1);
  }
 
-    public void addCommand(Command<Event> command) {
-        commands.add(command);
+    public void addCommand(Command<CommandInterface> command) {
+        commands.put(command.getCommand(),command);
     }
 
-    public List<Command<Event>> getCommands() {
+    public Map<String,Command<CommandInterface>> getCommands() {
         return commands;
     }
 
