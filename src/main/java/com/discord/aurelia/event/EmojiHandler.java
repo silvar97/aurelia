@@ -20,7 +20,7 @@ public class EmojiHandler<T extends EmojisUpdateEvent> implements CommandInterfa
 
         @Override
         public void execute(Event event) {
-                System.out.println("emojiHandler");
+                System.out.println("emojiHandler richtig");
 
         }
 

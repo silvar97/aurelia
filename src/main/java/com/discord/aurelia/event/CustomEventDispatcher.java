@@ -286,7 +286,7 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onMessageCreate(MessageCreateEvent event) {
-        if (!event.getMessage().getContent().equals("!ping")) {
+        if (!event.getMessage().getContent().equals("!")) {
             return null;
         }
         // channelSerive.getChannel(event.getMessage().getChannel().block().getId());

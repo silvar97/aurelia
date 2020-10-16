@@ -57,9 +57,9 @@ public MessageHandler(){
          //  event.getMessage().getChannel().block().createMessage("endlich").block();
 
          //   commandCollection.getCommands().stream().filter(c -> c.getCommand().equals(event.getMessage().getContent())).forEach(h->h.getHandler().execute(event));
-      context.getBean(commandCollection.getCommands().get("!ping").getHandlerclass()).execute(event);
+      //context.getBean(commandCollection.getCommands().get("!ping").getHandlerclass()).execute(event);
       context.getBean(commandCollection.getCommands().get("!guild").getHandlerclass()).execute(event);
-
+        commandCollection.getCommands().get("!emoji").getHandler().execute(event);
     }
 
     private void onMessageBulkDelete(MessageBulkDeleteEvent event) {
