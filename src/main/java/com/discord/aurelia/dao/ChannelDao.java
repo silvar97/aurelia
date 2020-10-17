@@ -1,11 +1,12 @@
 package com.discord.aurelia.dao;
 
-import java.util.Optional;
+import java.util.List;
 
 import discord4j.common.util.Snowflake;
 import discord4j.core.object.entity.channel.Channel;
+import discord4j.core.object.entity.channel.GuildChannel;
 
 public interface ChannelDao {
-    public Optional<Channel> getChannel(String channelName);
-    public Optional<Channel> getChannel(Snowflake channelId);
+    public List<GuildChannel> getChannel(String channelName);
+    public Channel getChannel(Snowflake channelId);
 }

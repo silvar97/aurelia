@@ -1,26 +1,17 @@
 package com.discord.aurelia.event;
 
 
-
-import java.util.List;
-import java.util.Optional;
-
-import com.discord.aurelia.command.Command;
 import com.discord.aurelia.command.CommandCollection;
-import com.discord.aurelia.command.CommandInterface;
-import com.discord.aurelia.configuration.CacheManagerConfig;
 import com.discord.aurelia.dao.ChannelDao;
 import com.github.benmanes.caffeine.cache.Cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.config.CacheManagementConfigUtils;
 import org.springframework.core.GenericTypeResolver;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
-import discord4j.common.util.Snowflake;
-import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.PresenceUpdateEvent;
 import discord4j.core.event.domain.UserUpdateEvent;
@@ -81,6 +72,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service(value = "customEventDispatcher")
+@Order(2)
 public class CustomEventDispatcher<T extends Event> implements EventListenerInterface<T> {
 
     @Autowired
@@ -218,7 +210,7 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onEmojisUpdate(EmojisUpdateEvent event) {
-            emojiHandler.handle(event);
+        emojiHandler.handle(event);
         return Mono.empty();
     }
 
@@ -291,35 +283,29 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onMessageBulkDelete(MessageBulkDeleteEvent event) {
-      
+
         return Mono.empty();
     }
 
     public Mono<Void> onMessageCreate(MessageCreateEvent event) {
-        if(!event.getMessage().getContent().equals("!ping")){
+        if (!event.getMessage().getContent().equals("!")) {
             return null;
         }
-       
-       // gateway.getGuilds();
+        channelSerive.getChannel(event.getMessage().getChannel().block().getId());
+        Cache nativeCoffeeCache = (Cache) cacheManager.getCache("channel").getNativeCache();
+        System.out.println(nativeCoffeeCache.stats());
 
-      event.getMessage().getChannel().block().createMessage("pong").block();
-
-        // List<Command<Event>> commandList = commands.getCommands();
-        // for(Command c: commandList){
-        //     if(c.getCommand().equals("!ping")){
-        //         c.getHandler().execute(event);
-        //     }
-        // }
+       // messageHandler.execute(event);
         return Mono.empty();
     }
 
     public Mono<Void> onMessageDelete(MessageDeleteEvent event) {
-      
+
         return Mono.empty();
     }
 
     public Mono<Void> onMessageUpdate(MessageUpdateEvent event) {
-      
+
         return Mono.empty();
     }
 

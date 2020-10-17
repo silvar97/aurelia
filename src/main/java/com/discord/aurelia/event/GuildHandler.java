@@ -1,6 +1,8 @@
 package com.discord.aurelia.event;
 
-import org.springframework.core.GenericTypeResolver;
+import com.discord.aurelia.command.CommandInterface;
+
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import discord4j.core.event.domain.Event;
@@ -8,24 +10,29 @@ import discord4j.core.event.domain.guild.GuildCreateEvent;
 import discord4j.core.event.domain.guild.GuildDeleteEvent;
 import discord4j.core.event.domain.guild.GuildEvent;
 import discord4j.core.event.domain.guild.GuildUpdateEvent;
-import discord4j.discordjson.json.gateway.GuildBanRemove;
 
 @Component
-public class GuildHandler<T extends GuildEvent>  implements HandlerInterface<T>{
+@Order(1)
+public class GuildHandler<T extends GuildEvent> implements CommandInterface {
 
-
-    public void handle(GuildUpdateEvent event){
+    public void handle(GuildUpdateEvent event) {
 
     }
 
-    public void handle(GuildDeleteEvent event){
-        
+    public void handle(GuildDeleteEvent event) {
+
     }
-    public void handle(GuildCreateEvent event){
-        
+
+    public void handle(GuildCreateEvent event) {
+
     }
     // private void onGuildUpdate(GuildUpdateEvent event) {
     // }
+
+    @Override
+    public void execute(Event event) {
+        System.out.println("guildHandler");
+    }
 
   
 
