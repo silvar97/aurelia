@@ -27,19 +27,6 @@ import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClient;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
-<<<<<<< HEAD
-import discord4j.core.event.domain.message.MessageEvent;
-import discord4j.core.object.entity.Message;
-import discord4j.core.object.entity.channel.GuildChannel;
-import discord4j.core.object.entity.channel.MessageChannel;
-import discord4j.core.object.entity.channel.TextChannel;
-import discord4j.core.object.presence.Activity;
-import discord4j.core.object.presence.Presence;
-import discord4j.discordjson.json.gateway.ImmutableChannelCreate;
-import discord4j.rest.entity.RestChannel;
-import reactor.core.publisher.Mono;
-=======
->>>>>>> 48e58cf43c0d34353a07e73eaf457d74c3aa4c8a
 
 @Configuration
 @DependsOn("cacheManagerConfig")
