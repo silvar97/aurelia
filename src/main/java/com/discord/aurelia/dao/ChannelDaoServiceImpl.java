@@ -3,6 +3,8 @@ package com.discord.aurelia.dao;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,11 +18,12 @@ import discord4j.core.object.entity.channel.GuildChannel;
 
 @Service
 @Order(3)
-@CacheConfig(cacheNames = {"CHANNELS"})
+@CacheConfig(cacheNames = {"channel"})
 public class ChannelDaoServiceImpl implements ChannelDao {
 
-  
+    @Autowired
     private GatewayDiscordClient gateway;
+    private static final Logger LOG = LoggerFactory.getLogger(ChannelDaoServiceImpl.class);
 
     public ChannelDaoServiceImpl(){
         System.out.println("ChannelDaoServiceImpl created");
@@ -37,9 +40,10 @@ public class ChannelDaoServiceImpl implements ChannelDao {
         .collect(Collectors.toList());
     }
 
+    @Cacheable(cacheNames = "channel")
     @Override
-    @Cacheable
     public Channel getChannel(Snowflake channelId) {
+        LOG.info("no hit");
         return gateway.getChannelById(channelId).block();
     }
 

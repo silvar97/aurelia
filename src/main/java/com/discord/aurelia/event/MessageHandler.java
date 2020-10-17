@@ -3,6 +3,7 @@ import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.command.CommandInterface;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

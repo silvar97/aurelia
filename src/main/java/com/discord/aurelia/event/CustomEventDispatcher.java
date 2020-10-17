@@ -3,6 +3,7 @@ package com.discord.aurelia.event;
 
 import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.dao.ChannelDao;
+import com.github.benmanes.caffeine.cache.Cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -66,6 +67,7 @@ import discord4j.core.event.domain.message.ReactionRemoveEvent;
 import discord4j.core.event.domain.role.RoleCreateEvent;
 import discord4j.core.event.domain.role.RoleDeleteEvent;
 import discord4j.core.event.domain.role.RoleUpdateEvent;
+import discord4j.core.object.entity.channel.Channel;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -289,10 +291,11 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
         if (!event.getMessage().getContent().equals("!")) {
             return null;
         }
-        // channelSerive.getChannel(event.getMessage().getChannel().block().getId());
-        // Cache nativeCoffeeCache = (Cache) cacheManager.getCache("CHANNELS").getNativeCache();
-        // System.out.println(nativeCoffeeCache.stats());
-        messageHandler.execute(event);
+        channelSerive.getChannel(event.getMessage().getChannel().block().getId());
+        Cache nativeCoffeeCache = (Cache) cacheManager.getCache("channel").getNativeCache();
+        System.out.println(nativeCoffeeCache.stats());
+
+       // messageHandler.execute(event);
         return Mono.empty();
     }
 

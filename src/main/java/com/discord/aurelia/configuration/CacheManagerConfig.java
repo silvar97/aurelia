@@ -21,11 +21,10 @@ public class CacheManagerConfig {
 @Bean("cacheManager")
 public CacheManager cacheManager(){ 
    Caffeine<Object,Object> caffeineBuilder= Caffeine.newBuilder()
-    .expireAfterAccess(30,TimeUnit.SECONDS)
-    .weakKeys().initialCapacity(100)
-    .weakValues()
+    .expireAfterAccess(30,TimeUnit.MINUTES)
+    .initialCapacity(100)
     .recordStats().maximumSize(100);
-    CaffeineCacheManager cacheManager=new CaffeineCacheManager("CHANNELS","GUILDS");
+    CaffeineCacheManager cacheManager=new CaffeineCacheManager("channel","guild");
     cacheManager.setAllowNullValues(false);
     cacheManager.setCaffeine(caffeineBuilder);
     return cacheManager;

@@ -17,6 +17,8 @@ import discord4j.core.event.domain.Event;
 @EnableCaching
 public class AureliaApplication {
 	
+	
+
 	public static void main(String[] args) {
 	ApplicationContext context=SpringApplication.run(AureliaApplication.class, args);
 	GatewayDiscordClient gateway=(GatewayDiscordClient)context.getBean("gateway");
