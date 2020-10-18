@@ -1,20 +1,6 @@
 package com.discord.aurelia.configuration;
 
 
-<<<<<<< HEAD
-import javax.annotation.PostConstruct;
-
-import com.discord.aurelia.AureliaApplication;
-import com.discord.aurelia.dao.ChannelDao;
-import com.discord.aurelia.event.CustomEventDispatcher;
-import com.discord.aurelia.event.MessageHandler;
-import com.discord.aurelia.event.UserManagementHandler;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.CaffeineSpec;
-
-import org.springframework.beans.factory.annotation.Autowired;
-=======
->>>>>>> 9d5468d57d3be4f98decee5deb5486f7268c85e1
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

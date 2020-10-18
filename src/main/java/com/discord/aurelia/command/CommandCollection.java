@@ -33,18 +33,12 @@ public class CommandCollection {
 
 @PostConstruct
  public void init(){
-<<<<<<< HEAD
-     System.out.println(messageHandler.toString());
-    Command<Event> command = new Command("!test", messageHandler);
-    addCommand(command);
-=======
-      Command<CommandInterface> command = new Command<>("!ping",EmojiHandler.class);
+      Command<CommandInterface> command = new Command<>("!habib",EmojiHandler.class);
       Command<CommandInterface> command1 = new Command<>("!guild",GuildHandler.class);
       Command<CommandInterface> command2 = new Command<>("!emoji",emoji);
       addCommand(command);
       addCommand(command1);
       addCommand(command2);
->>>>>>> 9d5468d57d3be4f98decee5deb5486f7268c85e1
  }
 
     public void addCommand(Command<CommandInterface> command) {
