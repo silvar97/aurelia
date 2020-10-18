@@ -16,7 +16,7 @@ import discord4j.core.object.entity.Guild;
 
 @Repository
 @Order(3)
-@CacheConfig(cacheNames = { "guilds" })
+@CacheConfig(cacheNames = { "guild" })
 public class GuildDaoServiceImpl implements GuildDao {
 
      @Autowired
