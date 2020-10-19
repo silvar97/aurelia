@@ -24,11 +24,15 @@ public class AureliaApplication {
 	GatewayDiscordClient gateway=(GatewayDiscordClient)context.getBean("gateway");
 	CustomEventDispatcher<Event> customEventDispatcher = (CustomEventDispatcher<Event>)context.getBean("customEventDispatcher");
 	gateway.getEventDispatcher().on(customEventDispatcher.getEventType()).subscribe(customEventDispatcher::execute);
+	
 	gateway.onDisconnect().block();
 
 	String[] beans = context.getBeanDefinitionNames();
 	Arrays.sort(beans);
 	for (String bean : beans) {
+		if(bean.contains("spring")|| bean.contains("org")){
+			continue;
+		}
 		System.out.println(bean);
 	}
 	

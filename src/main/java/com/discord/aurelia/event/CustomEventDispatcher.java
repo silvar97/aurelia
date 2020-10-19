@@ -288,14 +288,12 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onMessageCreate(MessageCreateEvent event) {
-        if (!event.getMessage().getContent().equals("!")) {
-            return null;
-        }
-        channelSerive.getChannel(event.getMessage().getChannel().block().getId());
+        
+      /*  channelSerive.getChannel(event.getMessage().getChannel().block().getId());
         Cache nativeCoffeeCache = (Cache) cacheManager.getCache("channel").getNativeCache();
-        System.out.println(nativeCoffeeCache.stats());
+        System.out.println(nativeCoffeeCache.stats());*/
 
-       // messageHandler.execute(event);
+        messageHandler.execute(event);
         return Mono.empty();
     }
 
