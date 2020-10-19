@@ -8,6 +8,6 @@ import discord4j.core.object.entity.Guild;
 public interface GuildDao {
     
     public List<Guild> getGuild(String guildName);
-    public Guild getGuild(Snowflake guildId);
+    public Guild getGuild(Snowflake guildId); //optional to avoid NPE
 
 }

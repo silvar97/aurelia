@@ -1,4 +1,5 @@
 package com.discord.aurelia.event;
+import com.discord.aurelia.command.Command;
 import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.command.CommandInterface;
 
@@ -8,13 +9,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import discord4j.common.util.Snowflake;
 import discord4j.core.event.domain.Event;
+import discord4j.core.event.domain.guild.BanEvent;
 import discord4j.core.event.domain.guild.EmojisUpdateEvent;
+import discord4j.core.event.domain.guild.UnbanEvent;
 import discord4j.core.event.domain.message.MessageBulkDeleteEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.event.domain.message.MessageDeleteEvent;
 import discord4j.core.event.domain.message.MessageEvent;
 import discord4j.core.event.domain.message.MessageUpdateEvent;
+import discord4j.core.spec.BanQuerySpec;
 
 @Component
 @Order(1)
@@ -57,10 +62,21 @@ public MessageHandler(){
            // commands.getCommands().get("!ping").
          //  event.getMessage().getChannel().block().createMessage("endlich").block();
 
-         //   commandCollection.getCommands().stream().filter(c -> c.getCommand().equals(event.getMessage().getContent())).forEach(h->h.getHandler().execute(event));
+          // commandCollection.getCommands().stream().filter(c -> c.getCommand().equals(event.getMessage().getContent())).forEach(h->h.getHandler().execute(event));
       //context.getBean(commandCollection.getCommands().get("!ping").getHandlerclass()).execute(event);
-      context.getBean(commandCollection.getCommands().get("!guild").getHandlerclass()).execute(event);
-        commandCollection.getCommands().get("!emoji").getHandler().execute(event);
+      //context.getBean(commandCollection.getCommands().get("!guild").getHandlerclass()).execute(event);
+        //commandCollection.getCommands().get("!emoji").getHandler().execute(event);
+
+        // event.getMember().get().ban(member->  {
+        //     member.setReason("");
+        // }).block();
+        // event.getMember().get().unban();
+            if(event.getMessage().getContent().contains("!") && event.getMessage().getContent().charAt(0)=='!'){
+
+           Command command =     commandCollection.getCommands().get(event.getMessage().getContent().split(" ")[0]);
+                command.getHandler().execute(event);
+            }
+
     }
 
     private void onMessageBulkDelete(MessageBulkDeleteEvent event) {

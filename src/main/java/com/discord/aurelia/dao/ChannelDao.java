@@ -8,5 +8,5 @@ import discord4j.core.object.entity.channel.GuildChannel;
 
 public interface ChannelDao {
     public List<GuildChannel> getChannel(String channelName);
-    public Channel getChannel(Snowflake channelId);
+    public Channel getChannel(Snowflake channelId); // optional to avoid NPE
 }
