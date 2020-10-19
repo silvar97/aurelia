@@ -38,8 +38,8 @@ public class WarningHandler<T extends Event> implements CommandInterface {
         Warning warning =new Warning(user,guild,1,3);
 
         warningService.addWarning(warning);
-
-        System.out.println(msgEvent.getMessage().getContent());
+        
+        warning = warningService.getWarning(warning);
 
         msgEvent.getMessage().getChannel().block().createMessage(user.getUsername()+" yes Motherfucker!").block();
     }

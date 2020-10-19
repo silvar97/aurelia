@@ -24,7 +24,7 @@ public CacheManager cacheManager(){
     .expireAfterAccess(30,TimeUnit.MINUTES)
     .initialCapacity(100)
     .recordStats().maximumSize(100);
-    CaffeineCacheManager cacheManager=new CaffeineCacheManager("channel","guild");
+    CaffeineCacheManager cacheManager=new CaffeineCacheManager("channel","guild","warning");
     cacheManager.setAllowNullValues(false);
     cacheManager.setCaffeine(caffeineBuilder);
     return cacheManager;
