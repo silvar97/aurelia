@@ -3,6 +3,7 @@ package com.discord.aurelia.event;
 import com.discord.aurelia.Service.ChannelService;
 import com.discord.aurelia.Service.WarningService;
 import com.discord.aurelia.command.CommandInterface;
+import com.discord.aurelia.constant.CommandConstant;
 import com.discord.aurelia.model.Warning;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,9 @@ public class WarningHandler<T extends Event> implements CommandInterface {
     public void execute(Event event) {
 
         MessageCreateEvent msgEvent = (MessageCreateEvent)event;
-
+        if(!msgEvent.getMessage().getContent().matches(CommandConstant.WARN_COMMAND_REGEX)){
+            return;
+        }
         String userId = msgEvent.getMessage().getContent().replaceAll(" +"," ").split(" ")[1].replaceAll("[^0-9]","");
         
         User user=gateway.getMemberById(msgEvent.getGuild().block().getId(), Snowflake.of(userId)).block();
