@@ -9,6 +9,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
+import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 
 @Service
@@ -23,26 +24,35 @@ public class WarningDaoServiceImpl implements WarningDao {
 
     @Override
     public void addWarning(Warning warning) {
-        // TODO Auto-generated method stub
+        
+       put(warning.getUser().getId().asLong(),warning);
 
     }
 
     @Override
     public Optional<Warning> getWarning(Warning warning) {
-        // TODO Auto-generated method stub
-        return null;
+        return Optional.of(get(warning));
     }
 
     @Override
     public void removeWarning(Warning warning) {
-        // TODO Auto-generated method stub
+        remove(warning);
     }
 
     @Override
     public boolean contains(Warning warning) {
-        // TODO Auto-generated method stub
-        return false;
+        return get(warning)==null?false:true;
     }
 
-  
+    private void put(long id , Warning warning){
+        cacheManager.getCache("warning").putIfAbsent(id,warning);
+    }
+    private Warning get(Warning warning){
+        System.out.println(warning.getUser().getId().asLong());
+        System.out.println(cacheManager.getCache("warning").get(warning.getUser().getId().asLong()));
+        return (Warning) cacheManager.getCache("warning").get(warning.getUser().getId().asLong()).get();
+    }
+  private void remove(Warning warning){
+    cacheManager.getCache("warning").evict(warning);
+  }
 }

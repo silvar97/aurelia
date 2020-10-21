@@ -1,4 +1,5 @@
 package com.discord.aurelia.event;
+
 import com.discord.aurelia.command.Command;
 import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.command.CommandInterface;
@@ -23,19 +24,20 @@ import discord4j.core.spec.BanQuerySpec;
 
 @Component
 @Order(1)
-public class MessageHandler<T extends MessageEvent> implements CommandInterface{
+public class MessageHandler<T extends MessageEvent> implements CommandInterface {
 
     @Autowired
     private CommandCollection commandCollection;
     @Autowired
     private ApplicationContext context;
-public MessageHandler(){
-    System.out.println("MessageHandler created");
-}
+
+    public MessageHandler() {
+        System.out.println("MessageHandler created");
+    }
 
     @Override
     public void execute(Event event) {
-      hookOnEvent(event);
+        hookOnEvent(event);
     }
 
     private void onMessageUpdate(MessageUpdateEvent event) {
@@ -50,32 +52,36 @@ public MessageHandler(){
 
     private void onMessageCreate(MessageCreateEvent event) {
         // if (event.getMessage().getContent().equals("!user")) {
-        //     event.getMessage().getChannel().block().createEmbed(e -> {
-        //         e.setAuthor(event.getMember().get().getUsername(), event.getMember().get().getDefaultAvatarUrl(), event.getMember().get().getAvatarUrl());
-        //  e.setColor(Color.RED);
-        //  e.addField("wer ist der größte noob?", "das weiß jeder",true);
-        //  e.setDescription("description");
-    
-        //     }).block();
+        // event.getMessage().getChannel().block().createEmbed(e -> {
+        // e.setAuthor(event.getMember().get().getUsername(),
+        // event.getMember().get().getDefaultAvatarUrl(),
+        // event.getMember().get().getAvatarUrl());
+        // e.setColor(Color.RED);
+        // e.addField("wer ist der größte noob?", "das weiß jeder",true);
+        // e.setDescription("description");
 
-        //   }
-           // commands.getCommands().get("!ping").
-         //  event.getMessage().getChannel().block().createMessage("endlich").block();
+        // }).block();
 
-          // commandCollection.getCommands().stream().filter(c -> c.getCommand().equals(event.getMessage().getContent())).forEach(h->h.getHandler().execute(event));
-      //context.getBean(commandCollection.getCommands().get("!ping").getHandlerclass()).execute(event);
-      //context.getBean(commandCollection.getCommands().get("!guild").getHandlerclass()).execute(event);
-        //commandCollection.getCommands().get("!emoji").getHandler().execute(event);
+        // }
+        // commands.getCommands().get("!ping").
+        // event.getMessage().getChannel().block().createMessage("endlich").block();
 
-        // event.getMember().get().ban(member->  {
-        //     member.setReason("");
+        // commandCollection.getCommands().stream().filter(c ->
+        // c.getCommand().equals(event.getMessage().getContent())).forEach(h->h.getHandler().execute(event));
+        // context.getBean(commandCollection.getCommands().get("!ping").getHandlerclass()).execute(event);
+        // context.getBean(commandCollection.getCommands().get("!guild").getHandlerclass()).execute(event);
+        // commandCollection.getCommands().get("!emoji").getHandler().execute(event);
+
+        // event.getMember().get().ban(member-> {
+        // member.setReason("");
         // }).block();
         // event.getMember().get().unban();
-            if(event.getMessage().getContent().contains("!") && event.getMessage().getContent().charAt(0)=='!'){
-
-           Command command =     commandCollection.getCommands().get(event.getMessage().getContent().split(" ")[0]);
+       if (event.getMessage().getContent().matches("(^[^0-9A-Za-z])([a-z]+)(?: [a-zA-Z0-9\\D]+)?")) {
+            Command command = commandCollection.getCommands().get(event.getMessage().getContent().split(" ")[0]);
+            if (command != null) {
                 command.getHandler().execute(event);
             }
+        }
 
     }
 
@@ -84,14 +90,19 @@ public MessageHandler(){
     }
 
     private void hookOnEvent(Event event) {
-        if (event instanceof MessageBulkDeleteEvent) onMessageBulkDelete((MessageBulkDeleteEvent) event);
-       else if (event instanceof MessageCreateEvent) onMessageCreate((MessageCreateEvent) event);
-       else if (event instanceof MessageDeleteEvent) onMessageDelete((MessageDeleteEvent) event);
-       else if (event instanceof MessageUpdateEvent) onMessageUpdate((MessageUpdateEvent) event);
-   }
-   @Override
-   public String toString(){
-       return "messageHandler";
-   }
-       
+        if (event instanceof MessageBulkDeleteEvent)
+            onMessageBulkDelete((MessageBulkDeleteEvent) event);
+        else if (event instanceof MessageCreateEvent)
+            onMessageCreate((MessageCreateEvent) event);
+        else if (event instanceof MessageDeleteEvent)
+            onMessageDelete((MessageDeleteEvent) event);
+        else if (event instanceof MessageUpdateEvent)
+            onMessageUpdate((MessageUpdateEvent) event);
     }
+
+    @Override
+    public String toString() {
+        return "messageHandler";
+    }
+
+}

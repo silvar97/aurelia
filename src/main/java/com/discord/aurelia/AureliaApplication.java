@@ -24,7 +24,6 @@ public class AureliaApplication {
 	GatewayDiscordClient gateway=(GatewayDiscordClient)context.getBean("gateway");
 	CustomEventDispatcher<Event> customEventDispatcher = (CustomEventDispatcher<Event>)context.getBean("customEventDispatcher");
 	gateway.getEventDispatcher().on(customEventDispatcher.getEventType()).subscribe(customEventDispatcher::execute);
-	
 	gateway.onDisconnect().block();
 
 	String[] beans = context.getBeanDefinitionNames();

@@ -17,11 +17,10 @@ private WarningDao warningDao;
 
 
 public void addWarning(Warning warning){
-    
     warningDao.addWarning(warning);
 }
 public Warning getWarning(Warning warning){
-    return null;
+    return warningDao.getWarning(warning).get();
 }
 
 }
