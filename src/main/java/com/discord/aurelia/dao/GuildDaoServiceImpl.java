@@ -35,7 +35,7 @@ public class GuildDaoServiceImpl implements GuildDao {
     @Override
     @Cacheable
     public Guild getGuild(Snowflake guildId) {
-        // TODO Auto-generated method stub
+       System.out.println("Guild Service request NO hit");
         return gateway.getGuildById(guildId).block();
     }
 

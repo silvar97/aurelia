@@ -16,11 +16,14 @@ public class WarningService {
 private WarningDao warningDao;
 
 
-public void addWarning(Warning warning){
+public void add(Warning warning){
     warningDao.addWarning(warning);
 }
-public Warning getWarning(Warning warning){
-    return warningDao.getWarning(warning).get();
+public Warning get(Warning warning){
+    return warningDao.getWarning(warning);
+}
+public void remove(Warning warning){
+    warningDao.removeWarning(warning);
 }
 
 }

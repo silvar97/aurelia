@@ -17,8 +17,18 @@
 	<properties>
 		<java.version>14</java.version>
 	</properties>
-
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 	<dependencies>
+		<dependency>
+			<groupId>com.github.sapher</groupId>
+			<artifactId>youtubedl-java</artifactId>
+			<version>1.1</version>
+		</dependency>
 		<dependency>
 			<groupId>com.discord4j</groupId>
 			<artifactId>discord4j-core</artifactId>

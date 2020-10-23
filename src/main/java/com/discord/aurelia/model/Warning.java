@@ -20,6 +20,9 @@ public class Warning {
         this.currentWarnings = currentWarnings;
         this.maxWarnings = maxWarnings;
     }
+    public Warning(User user,Guild guild){
+        
+    }
 
     public void setUser(User user) {
         this.user = user;

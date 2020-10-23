@@ -6,6 +6,7 @@ import com.discord.aurelia.model.Warning;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +25,12 @@ public class WarningDaoServiceImpl implements WarningDao {
 
     @Override
     public void addWarning(Warning warning) {
-        
-       put(warning.getUser().getId().asLong(),warning);
-
+       put(warning);
     }
 
     @Override
-    public Optional<Warning> getWarning(Warning warning) {
-        return Optional.of(get(warning));
+    public Warning getWarning(Warning warning) {
+        return get(warning);
     }
 
     @Override
@@ -44,15 +43,20 @@ public class WarningDaoServiceImpl implements WarningDao {
         return get(warning)==null?false:true;
     }
 
-    private void put(long id , Warning warning){
-        cacheManager.getCache("warning").putIfAbsent(id,warning);
+    private void put(Warning warning){
+        cacheManager.getCache("warning").putIfAbsent(warning.getGuild().getId().asLong(),warning);
     }
     private Warning get(Warning warning){
         System.out.println(warning.getUser().getId().asLong());
-        System.out.println(cacheManager.getCache("warning").get(warning.getUser().getId().asLong()));
-        return (Warning) cacheManager.getCache("warning").get(warning.getUser().getId().asLong()).get();
+        System.out.println(cacheManager.getCache("warning").get(warning.getGuild().getId().asLong()));
+        ValueWrapper value;
+        if((value=cacheManager.getCache("warning").get(warning.getGuild().getId().asLong()))==null) {
+            return null;
+        }
+
+        return (Warning)value.get();
     }
   private void remove(Warning warning){
-    cacheManager.getCache("warning").evict(warning);
+    cacheManager.getCache("warning").evictIfPresent(warning.getGuild().getId().asLong());
   }
 }

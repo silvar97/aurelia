@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.GuildHandler;
 import com.discord.aurelia.event.MessageHandler;
+import com.discord.aurelia.event.VoiceChatHandler;
 import com.discord.aurelia.event.WarningHandler;
 import com.nimbusds.oauth2.sdk.Message;
 
@@ -31,6 +32,9 @@ public class CommandCollection {
     private EmojiHandler<EmojisUpdateEvent> emoji;
     @Autowired
     private WarningHandler<Event> warning;
+    @Autowired
+    private VoiceChatHandler<Event> voiceChatHandler;
+
     public CommandCollection(){
         System.out.println("commandCollection");
     }
@@ -41,11 +45,12 @@ public class CommandCollection {
       Command<CommandInterface> command1 = new Command<>("!guild",GuildHandler.class);
       Command<CommandInterface> command2 = new Command<>("!emoji",emoji);
       Command<CommandInterface> warnCommand = new Command<>("!warn",warning);
-    
+      Command<CommandInterface> voiceCommand = new Command<>("!join",voiceChatHandler);
       addCommand(command);
       addCommand(command1);
       addCommand(command2);
       addCommand(warnCommand);
+      addCommand(voiceCommand);
  }
 
     public void addCommand(Command<CommandInterface> command) {
