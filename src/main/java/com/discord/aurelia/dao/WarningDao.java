@@ -11,5 +11,4 @@ public interface WarningDao {
     public Warning getWarning(Warning warning);
     public void removeWarning(Warning warning);
     public boolean contains(Warning warning);
-
 }

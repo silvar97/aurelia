@@ -1,24 +1,48 @@
 package com.discord.aurelia.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
 
-import discord4j.core.GatewayDiscordClient;
-import discord4j.core.object.entity.User;
-import discord4j.core.object.reaction.ReactionEmoji.Custom;
-import discord4j.discordjson.json.UserData;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 @Entity
+@Table(name = "custom_user")
 public class CustomUser {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.AUTO)
-    private long id;
+    @Column(name = "id")
+     private long userId;
 
+    @OneToMany(mappedBy = "user")
+    Set<Ban> bans = new HashSet<>();
+
+    public CustomUser(long userId){
+        this.userId= userId;
+    }
     public CustomUser(){
-        
+
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public Set<Ban> getBans() {
+        return bans;
+    }
+
+    public void setBans(Set<Ban> bans) {
+        this.bans = bans;
     }
 
     

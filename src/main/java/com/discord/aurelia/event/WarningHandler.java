@@ -67,7 +67,7 @@ public class WarningHandler<T extends Event> implements CommandInterface {
 
 
         Member user = gateway.getMemberById(msgEvent.getGuild().block().getId(), Snowflake.of(userId)).block();
-        user.getPrivateChannel().block().createMessage("Du wichser").block();
+       
         Guild guild = guildService.getChannelById(msgEvent.getGuildId().get());
         Warning warning = new Warning(user, guild, 1, 3);
         Warning tmp;
@@ -87,6 +87,9 @@ public class WarningHandler<T extends Event> implements CommandInterface {
         } else {
             warningService.add(warning);
         }
+        // msgEvent.getMessage().getChannel().block().createEmbed(spec->{
+        //     spec.addField("banned: "+" asdasda", "  a", false);
+        // }).block();
 
     }
 
