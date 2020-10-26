@@ -105,4 +105,10 @@ public class MessageHandler<T extends MessageEvent> implements CommandInterface 
         return "messageHandler";
     }
 
+    @Override
+    public String getDescription() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

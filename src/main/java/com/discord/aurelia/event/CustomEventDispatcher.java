@@ -1,6 +1,5 @@
 package com.discord.aurelia.event;
 
-
 import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.dao.ChannelDao;
 import com.github.benmanes.caffeine.cache.Cache;
@@ -288,10 +287,13 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onMessageCreate(MessageCreateEvent event) {
-        
-      /*  channelSerive.getChannel(event.getMessage().getChannel().block().getId());
-        Cache nativeCoffeeCache = (Cache) cacheManager.getCache("channel").getNativeCache();
-        System.out.println(nativeCoffeeCache.stats());*/
+
+        /*
+         * channelSerive.getChannel(event.getMessage().getChannel().block().getId());
+         * Cache nativeCoffeeCache = (Cache)
+         * cacheManager.getCache("channel").getNativeCache();
+         * System.out.println(nativeCoffeeCache.stats());
+         */
 
         messageHandler.execute(event);
         return Mono.empty();

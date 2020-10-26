@@ -1,25 +1,25 @@
-package com.discord.aurelia.model;
+// package com.discord.aurelia.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+// import javax.persistence.Entity;
+// import javax.persistence.GeneratedValue;
+// import javax.persistence.GenerationType;
+// import javax.persistence.Id;
 
-import discord4j.core.GatewayDiscordClient;
-import discord4j.core.object.entity.User;
-import discord4j.core.object.reaction.ReactionEmoji.Custom;
-import discord4j.discordjson.json.UserData;
+// import discord4j.core.GatewayDiscordClient;
+// import discord4j.core.object.entity.User;
+// import discord4j.core.object.reaction.ReactionEmoji.Custom;
+// import discord4j.discordjson.json.UserData;
 
-@Entity
-public class CustomUser {
+// @Entity
+// public class CustomUser {
 
-    @Id
-    @GeneratedValue(strategy =GenerationType.AUTO)
-    private long id;
+//     @Id
+//     @GeneratedValue(strategy =GenerationType.AUTO)
+//     private long id;
 
-    public CustomUser(){
+//     public CustomUser(){
         
-    }
+//     }
 
     
-}
+// }

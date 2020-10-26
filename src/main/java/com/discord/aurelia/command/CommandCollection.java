@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import com.discord.aurelia.event.BaningHandler;
 import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.GuildHandler;
 import com.discord.aurelia.event.MessageHandler;
@@ -34,6 +35,8 @@ public class CommandCollection {
     public CommandCollection(){
         System.out.println("commandCollection");
     }
+    @Autowired
+    private BaningHandler<Event> baning;
 
 @PostConstruct
  public void init(){
@@ -41,11 +44,14 @@ public class CommandCollection {
       Command<CommandInterface> command1 = new Command<>("!guild",GuildHandler.class);
       Command<CommandInterface> command2 = new Command<>("!emoji",emoji);
       Command<CommandInterface> warnCommand = new Command<>("!warn",warning);
-    
+      Command<CommandInterface> banCommand = new Command<>("!ban", baning);
+
       addCommand(command);
       addCommand(command1);
       addCommand(command2);
       addCommand(warnCommand);
+      addCommand(banCommand);
+     
  }
 
     public void addCommand(Command<CommandInterface> command) {

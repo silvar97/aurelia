@@ -38,7 +38,7 @@ public class WarningHandler<T extends Event> implements CommandInterface {
         
         User user=gateway.getMemberById(msgEvent.getGuild().block().getId(), Snowflake.of(userId)).block();
         Guild guild = msgEvent.getGuild().block();
-        Warning warning =new Warning(user,guild,1,3);
+        Warning warning = new Warning(user,guild,1,3);
 
         warningService.addWarning(warning);
         
@@ -46,5 +46,10 @@ public class WarningHandler<T extends Event> implements CommandInterface {
 
         msgEvent.getMessage().getChannel().block().createMessage(user.getUsername()+" yes Motherfucker!").block();
     }
-    
+
+    @Override
+    public String getDescription() {
+        // TODO Auto-generated method stub
+        return "Warns a user.\n !warn <user> <reason:optional>";
+    }
 }
