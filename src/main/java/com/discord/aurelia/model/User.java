@@ -5,35 +5,37 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "custom_user")
-public class CustomUser {
-
+@Table(name = "user",schema = "aurelia")
+public class User {
+    
     @Id
-    @Column(name = "id")
-     private long userId;
+    @Column(name = "user_id",unique = true)
+    private Long userId;
 
+    
     @OneToMany(mappedBy = "user")
-    Set<Ban> bans = new HashSet<>();
-
-    public CustomUser(long userId){
-        this.userId= userId;
-    }
-    public CustomUser(){
+    private Set<Ban> bans = new HashSet<>();
+    
+    public User(){
 
     }
+    public User(Long userId){
+        this.userId = userId;
+    }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -44,6 +46,7 @@ public class CustomUser {
     public void setBans(Set<Ban> bans) {
         this.bans = bans;
     }
-
-    
+    public void addBan(Ban ban){
+        bans.add(ban);
+    }
 }
