@@ -18,6 +18,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
@@ -25,35 +26,38 @@ import discord4j.core.event.domain.Event;
 
 @SpringBootApplication
 @EnableCaching
+@EnableScheduling
 public class AureliaApplication {
 
 
 	public static void main(String[] args) {
 	ApplicationContext context=SpringApplication.run(AureliaApplication.class, args);
 
-	UserRepository userRepo = context.getBean(UserRepository.class);
-	GuildRepository guildRepo = context.getBean(GuildRepository.class);
-	BanRepository banRepo = context.getBean(BanRepository.class);
 
-		User user = new User(123123l);
-		Guild guild = new Guild(123123l);
 
-		BanKey banKey = new BanKey(user.getUserId(),guild.getGuildId());
-		Ban ban = new Ban (banKey,user,guild);
-		userRepo.save(user);
-		guildRepo.save(guild);
-		banRepo.save(ban);
+	// UserRepository userRepo = context.getBean(UserRepository.class);
+	// GuildRepository guildRepo = context.getBean(GuildRepository.class);
+	// BanRepository banRepo = context.getBean(BanRepository.class);
+
+	// 	User user = new User(123123l);
+	// 	Guild guild = new Guild(123123l);
+
+	// 	BanKey banKey = new BanKey(user.getUserId(),guild.getGuildId());
+	// 	Ban ban = new Ban (banKey,user,guild);
+	// 	userRepo.save(user);
+	// 	guildRepo.save(guild);
+	// 	banRepo.save(ban);
 
 	
 		
 
-	// GatewayDiscordClient gateway=(GatewayDiscordClient)context.getBean("gateway");
-	// CustomEventDispatcher<Event> customEventDispatcher = (CustomEventDispatcher<Event>)context.getBean("customEventDispatcher");
+	GatewayDiscordClient gateway=(GatewayDiscordClient)context.getBean("gateway");
+	CustomEventDispatcher<Event> customEventDispatcher = (CustomEventDispatcher<Event>)context.getBean("customEventDispatcher");
 		
 
 
-	// gateway.getEventDispatcher().on(customEventDispatcher.getEventType()).subscribe(customEventDispatcher::execute);
-	// gateway.onDisconnect().block();
+	gateway.getEventDispatcher().on(customEventDispatcher.getEventType()).subscribe(customEventDispatcher::execute);
+	gateway.onDisconnect().block();
 
 	// String[] beans = context.getBeanDefinitionNames();
 	// Arrays.sort(beans);
