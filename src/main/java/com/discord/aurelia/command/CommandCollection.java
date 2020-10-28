@@ -11,6 +11,7 @@ import com.discord.aurelia.event.BaningHandler;
 import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.GuildHandler;
 import com.discord.aurelia.event.MessageHandler;
+import com.discord.aurelia.event.ServerInfoHandler;
 import com.discord.aurelia.event.WarningHandler;
 import com.nimbusds.oauth2.sdk.Message;
 
@@ -38,6 +39,9 @@ public class CommandCollection {
     @Autowired
     private BaningHandler<Event> baning;
 
+    @Autowired
+    private ServerInfoHandler<Event> serverInfo;
+
 @PostConstruct
  public void init(){
       Command<CommandInterface> command = new Command<>("!habib",EmojiHandler.class);
@@ -45,13 +49,14 @@ public class CommandCollection {
       Command<CommandInterface> command2 = new Command<>("!emoji",emoji);
       Command<CommandInterface> warnCommand = new Command<>("!warn",warning);
       Command<CommandInterface> banCommand = new Command<>("!ban", baning);
+      Command<CommandInterface> serverInfoCommand = new Command<>("!server", serverInfo);
 
       addCommand(command);
       addCommand(command1);
       addCommand(command2);
       addCommand(warnCommand);
       addCommand(banCommand);
-     
+      addCommand(serverInfoCommand);
  }
 
     public void addCommand(Command<CommandInterface> command) {

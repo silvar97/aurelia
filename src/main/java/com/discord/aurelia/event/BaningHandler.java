@@ -1,33 +1,23 @@
 package com.discord.aurelia.event;
 
-import com.discord.aurelia.Service.ChannelService;
 import com.discord.aurelia.command.CommandInterface;
 import com.discord.aurelia.constant.CommandConstant;
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
+import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
-import discord4j.discordjson.json.BanData;
 import discord4j.rest.util.Color;
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.message.MessageCreateEvent;
-import discord4j.core.object.entity.Guild;
 import discord4j.core.object.entity.Member;
-import discord4j.core.object.entity.User;
-import discord4j.core.object.entity.channel.Channel;
-import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.Role;
-import discord4j.core.object.Ban;
+import discord4j.core.object.entity.User;
 
 @Component
 public class BaningHandler<T extends Event> implements CommandInterface {
@@ -41,7 +31,7 @@ public class BaningHandler<T extends Event> implements CommandInterface {
          * Create object of MessageCreateEvent class
          */
         MessageCreateEvent msgCreateEvent = (MessageCreateEvent) event;
-
+        
         /*
          * Check if mentioned member is empty
          */
