@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.TimerTask;
 
-import com.discord.aurelia.Service.GuildService;
+import com.discord.aurelia.Service.GatewayService;
 import com.discord.aurelia.model.Ban;
 import com.discord.aurelia.repository.BanRepository;
 
@@ -27,11 +27,9 @@ public class BanRevomer  {
     @Autowired
     private BanRepository banRepo;
     @Autowired
-    private GuildService guildService;
-    @Autowired
-    private GatewayDiscordClient gateway;
+    private GatewayService gateway;
 
-@Scheduled(fixedDelay = 10000)
+//@Scheduled(fixedDelay = 10000)
 public void removeBans(){
     Iterable<Ban> bans = banRepo.findAll();
     bans.forEach(b -> {

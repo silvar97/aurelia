@@ -20,8 +20,16 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
+import discord4j.core.object.ExtendedInvite;
+import discord4j.core.object.Invite;
+import discord4j.core.spec.InviteCreateSpec;
+import discord4j.discordjson.json.InviteCreateRequest;
+import discord4j.discordjson.json.gateway.InviteCreate;
+import discord4j.rest.entity.RestInvite;
+import discord4j.rest.service.InviteService;
 
 
 @SpringBootApplication
@@ -54,8 +62,7 @@ public class AureliaApplication {
 	GatewayDiscordClient gateway=(GatewayDiscordClient)context.getBean("gateway");
 	CustomEventDispatcher<Event> customEventDispatcher = (CustomEventDispatcher<Event>)context.getBean("customEventDispatcher");
 		
-
-
+		// gateway.getGuildById(Snowflake.of(759138832896884776l)).block().getInvites().collectList().block().759138832896884776
 	gateway.getEventDispatcher().on(customEventDispatcher.getEventType()).subscribe(customEventDispatcher::execute);
 	gateway.onDisconnect().block();
 

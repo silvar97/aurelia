@@ -1,5 +1,6 @@
 package com.discord.aurelia.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -16,12 +17,12 @@ public class Warning {
     @EmbeddedId
     private WarningKey warningKey;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @MapsId("guildId")
     @JoinColumn(name = "guild_id")
     private Guild guild;
@@ -87,6 +88,49 @@ public class Warning {
     public String toString() {
         return "Warning [currentWarnings=" + currentWarnings + ", guild=" + guild + ", maxWarnings=" + maxWarnings
                 + ", user=" + user + ", warningKey=" + warningKey + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + currentWarnings;
+        result = prime * result + ((guild == null) ? 0 : guild.hashCode());
+        result = prime * result + maxWarnings;
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        result = prime * result + ((warningKey == null) ? 0 : warningKey.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Warning other = (Warning) obj;
+        if (currentWarnings != other.currentWarnings)
+            return false;
+        if (guild == null) {
+            if (other.guild != null)
+                return false;
+        } else if (!guild.equals(other.guild))
+            return false;
+        if (maxWarnings != other.maxWarnings)
+            return false;
+        if (user == null) {
+            if (other.user != null)
+                return false;
+        } else if (!user.equals(other.user))
+            return false;
+        if (warningKey == null) {
+            if (other.warningKey != null)
+                return false;
+        } else if (!warningKey.equals(other.warningKey))
+            return false;
+        return true;
     }
 
 }

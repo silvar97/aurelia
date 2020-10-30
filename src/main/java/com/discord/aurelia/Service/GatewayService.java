@@ -38,15 +38,17 @@ public class GatewayService implements EntityRetriever {
     }
 
     @Override
+    @Cacheable(cacheNames = "mono")
     public Mono<Guild> getGuildById(Snowflake guildId) {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getGuildById(guildId);
     }
 
     @Override
+    @Cacheable(cacheNames = "mono")
     public Mono<GuildEmoji> getGuildEmojiById(Snowflake guildId, Snowflake emojiId) {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getGuildEmojiById(guildId, emojiId);
     }
 
     @Override
@@ -57,57 +59,66 @@ public class GatewayService implements EntityRetriever {
     }
 
     @Override
+    @Cacheable(cacheNames = "mono")
     public Mono<Message> getMessageById(Snowflake channelId, Snowflake messageId) {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getMessageById(channelId, messageId);
     }
 
     @Override
+    @Cacheable(cacheNames = "mono")
     public Mono<Role> getRoleById(Snowflake guildId, Snowflake roleId) {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getRoleById(guildId, roleId);
     }
 
     @Override
+    @Cacheable(cacheNames = "mono")
     public Mono<User> getUserById(Snowflake userId) {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getUserById(userId);
     }
 
     @Override
+    @Cacheable(cacheNames = "flux")
     public Flux<Guild> getGuilds() {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getGuilds();
     }
 
     @Override
+    @Cacheable(cacheNames = "mono")
     public Mono<User> getSelf() {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getSelf();
     }
 
     @Override
+    @Cacheable(cacheNames = "flux")
     public Flux<Member> getGuildMembers(Snowflake guildId) {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getGuildMembers(guildId);
     }
 
     @Override
+    @Cacheable(cacheNames = "flux")
     public Flux<GuildChannel> getGuildChannels(Snowflake guildId) {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getGuildChannels(guildId);
     }
 
-    @Override
+    @Override 
+    @Cacheable(cacheNames = "flux")
     public Flux<Role> getGuildRoles(Snowflake guildId) {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getGuildRoles(guildId);
     }
 
     @Override
+    @Cacheable(cacheNames = "flux")
     public Flux<GuildEmoji> getGuildEmojis(Snowflake guildId) {
         // TODO Auto-generated method stub
-        return null;
+        return gateway.getGuildEmojis(guildId);
     }
     
 }
