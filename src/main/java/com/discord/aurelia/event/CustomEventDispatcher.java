@@ -1,7 +1,6 @@
 package com.discord.aurelia.event;
 
 import com.discord.aurelia.command.CommandCollection;
-import com.discord.aurelia.dao.ChannelDao;
 import com.github.benmanes.caffeine.cache.Cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,8 +82,6 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     @Autowired
     @Qualifier("commandCollection")
     private CommandCollection commands;
-    @Autowired
-    private ChannelDao channelSerive;
     @Autowired
     private CacheManager cacheManager;
     // @Autowired

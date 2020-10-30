@@ -4,6 +4,7 @@ package com.discord.aurelia.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 
 import discord4j.core.DiscordClient;
@@ -20,7 +21,7 @@ public class AureliaBotConfig {
         System.out.println("AureliaBotConfig created");
     }
 
-    @Bean
+    @Bean()
     public GatewayDiscordClient gateway() {
         final DiscordClient client = DiscordClient.create(token);
         final GatewayDiscordClient gateway = client.login().block();

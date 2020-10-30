@@ -4,25 +4,24 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 
 @Embeddable
-public class WarningKey implements Serializable{
-    
+public class WarningKey implements Serializable {
+
     /**
      *
      */
     private static final long serialVersionUID = -4671894534886761334L;
+
     @Column(name = "user_id")
     private Long userId;
-    @Column(name="guild_id")
+    @Column(name = "guild_id")
     private Long guildId;
 
-    
     public WarningKey() {
     }
 
- public WarningKey(Long userId, Long guildId) {
+    public WarningKey(Long userId, Long guildId) {
         this.userId = userId;
         this.guildId = guildId;
     }
@@ -74,5 +73,4 @@ public class WarningKey implements Serializable{
         return true;
     }
 
-   
 }

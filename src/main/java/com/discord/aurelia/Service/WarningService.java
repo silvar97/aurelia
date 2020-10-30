@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class WarningService {
         warningRepo.save(warning);
     }
 
-    @Cacheable
+    @Cacheable(unless = "#result==null",key = "#root.args[0]")
     public Warning get(WarningKey key) {
         LOG.info("get warning no hit in cache");
         Optional<Warning> warning = warningRepo.findById(key);
@@ -36,6 +37,7 @@ public class WarningService {
         return null;
     }
 
+ @CacheEvict(key = "#root.args[0].getWarningKey()")
     public void remove(Warning warning) {
         warningRepo.delete(warning);
     }
