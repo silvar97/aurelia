@@ -37,6 +37,12 @@ public class VoiceChatHandler<T extends Event> implements CommandInterface {
      // voiceConnection.disconnect();
     }
 
+    @Override
+    public String getDescription() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 
     
 }

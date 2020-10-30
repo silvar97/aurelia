@@ -11,11 +11,8 @@ import com.discord.aurelia.event.BaningHandler;
 import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.GuildHandler;
 import com.discord.aurelia.event.MessageHandler;
-<<<<<<< HEAD
 import com.discord.aurelia.event.ServerInfoHandler;
-=======
 import com.discord.aurelia.event.VoiceChatHandler;
->>>>>>> 07507ac13f9bf5b6fefd3d26f51d46ad136e4bf9
 import com.discord.aurelia.event.WarningHandler;
 import com.nimbusds.oauth2.sdk.Message;
 
@@ -49,29 +46,28 @@ public class CommandCollection {
     @Autowired
     private ServerInfoHandler<Event> serverInfo;
 
+    @Autowired
+    private ServerInfoHandler<Event> userInfo;
+
 @PostConstruct
  public void init(){
       Command<CommandInterface> command = new Command<>("!habib",EmojiHandler.class);
       Command<CommandInterface> command1 = new Command<>("!guild",GuildHandler.class);
       Command<CommandInterface> command2 = new Command<>("!emoji",emoji);
       Command<CommandInterface> warnCommand = new Command<>("!warn",warning);
-<<<<<<< HEAD
       Command<CommandInterface> banCommand = new Command<>("!ban", baning);
-      Command<CommandInterface> serverInfoCommand = new Command<>("!server", serverInfo);
-
-=======
+      Command<CommandInterface> serverInfoCommand = new Command<>("!server-info", serverInfo);
+      Command<CommandInterface> userInfoCommand = new Command<>("!user-info", userInfo);
       Command<CommandInterface> voiceCommand = new Command<>("!join",voiceChatHandler);
->>>>>>> 07507ac13f9bf5b6fefd3d26f51d46ad136e4bf9
+
       addCommand(command);
       addCommand(command1);
       addCommand(command2);
       addCommand(warnCommand);
-<<<<<<< HEAD
       addCommand(banCommand);
       addCommand(serverInfoCommand);
-=======
+      addCommand(userInfoCommand);
       addCommand(voiceCommand);
->>>>>>> 07507ac13f9bf5b6fefd3d26f51d46ad136e4bf9
  }
 
     public void addCommand(Command<CommandInterface> command) {

@@ -76,7 +76,7 @@ public class MessageHandler<T extends MessageEvent> implements CommandInterface 
         // member.setReason("");
         // }).block();
         // event.getMember().get().unban();
-       if (event.getMessage().getContent().matches("(^[^0-9A-Za-z])([a-z]+)(?: [a-zA-Z0-9\\D]+)?")) {
+       if (event.getMessage().getContent().matches("(^[^0-9A-Za-z])([a-zA-Z]+)(?:-[A-Za-z]+)?")) {
             Command command = commandCollection.getCommands().get(event.getMessage().getContent().split(" ")[0]);
             if (command != null) {
                 command.getHandler().execute(event);

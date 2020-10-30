@@ -59,14 +59,6 @@ public class WarningHandler<T extends Event> implements CommandInterface {
             msgEvent.getMessage().getChannel().block().createMessage("test").block();
             return;
         }
-<<<<<<< HEAD
-        String userId = msgEvent.getMessage().getContent().replaceAll(" +"," ").split(" ")[1].replaceAll("[^0-9]","");
-        
-        User user=gateway.getMemberById(msgEvent.getGuild().block().getId(), Snowflake.of(userId)).block();
-        Guild guild = msgEvent.getGuild().block();
-        Warning warning = new Warning(user,guild,1,3);
-=======
->>>>>>> 07507ac13f9bf5b6fefd3d26f51d46ad136e4bf9
 
 
     //   long permlong= msgEvent.getMember().get().getRoles().collectList().block().get(0).getPermissions().getRawValue();
@@ -127,12 +119,10 @@ public class WarningHandler<T extends Event> implements CommandInterface {
         // }).block();
     }
 
-<<<<<<< HEAD
     @Override
     public String getDescription() {
         // TODO Auto-generated method stub
-        return "Warns a user.\n !warn <user> <reason:optional>";
+        return null;
     }
-=======
->>>>>>> 07507ac13f9bf5b6fefd3d26f51d46ad136e4bf9
+
 }
