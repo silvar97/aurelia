@@ -4,6 +4,6 @@ import com.discord.aurelia.model.Setting;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface SettingRepo extends CrudRepository<Setting,Long> {
+public interface SettingRepository  extends CrudRepository<Setting,Long>{
     
 }

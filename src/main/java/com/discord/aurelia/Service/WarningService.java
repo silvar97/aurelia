@@ -3,7 +3,7 @@ package com.discord.aurelia.Service;
 import java.util.Optional;
 
 import com.discord.aurelia.model.Warning;
-import com.discord.aurelia.model.WarningKey;
+import com.discord.aurelia.model.WarningPK;
 import com.discord.aurelia.repository.WarningRepository;
 
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class WarningService {
     }
 
     @Cacheable(unless = "#result==null",key = "#root.args[0]")
-    public Warning get(WarningKey key) {
+    public Warning get(WarningPK key) {
         LOG.info("get warning no hit in cache");
         Optional<Warning> warning = warningRepo.findById(key);
         if (warning.isPresent()) {

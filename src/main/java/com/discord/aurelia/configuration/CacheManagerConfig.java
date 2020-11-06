@@ -13,6 +13,7 @@ import org.springframework.core.annotation.Order;
 
 @Configuration
 @Order(4)
+@Lazy
 public class CacheManagerConfig {
 
     public CacheManagerConfig(){
@@ -20,6 +21,7 @@ public class CacheManagerConfig {
     }
 
 @Bean("cacheManager")
+@Lazy
 public CacheManager cacheManager(){ 
    Caffeine<Object,Object> caffeineBuilder= Caffeine.newBuilder()
     .expireAfterAccess(5,TimeUnit.MINUTES)
