@@ -31,7 +31,7 @@ public class BaningHandler<T extends Event> implements CommandInterface {
          * Create object of MessageCreateEvent class
          */
         MessageCreateEvent msgCreateEvent = (MessageCreateEvent) event;
-        
+
         /*
          * Check if mentioned member is empty
          */
@@ -40,26 +40,26 @@ public class BaningHandler<T extends Event> implements CommandInterface {
                 e.setColor(Color.RED);
                 e.setDescription("Missing arguments.");
             }).block();
-            return;
         }
 
         /*
-         * Define mentioned user
+         * Define user who mentioned another user
          */
-        // User who mentions
         String mentionedUser = msgCreateEvent.getMessage().getContent().replaceAll(" +", " ").split(" ")[1]
                 .replaceAll("[^0-9]", "");
 
-        // User that gets mentions
+        /*
+         * Define user that GETS mentioned by another user
+         */
         Member pingedUser = gateway.getMemberById(msgCreateEvent.getGuildId().get(), Snowflake.of(mentionedUser))
                 .block();
 
         /*
          * Check if member who ran the command has permission do to so
          */
-        
+
         List<Role> list = msgCreateEvent.getMember().get().getRoles().collectList().block();
-        if (list.size() == 0){
+        if (list.size() == 0) {
             return;
         }
         long permLongUser = list.get(0).getPermissions().getRawValue();
@@ -90,7 +90,7 @@ public class BaningHandler<T extends Event> implements CommandInterface {
                 return;
             }).block();
         }
-        
+
         /*
          * Check if bot has the permission to ran the command
          */

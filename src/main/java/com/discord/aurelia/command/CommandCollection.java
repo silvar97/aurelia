@@ -8,10 +8,13 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import com.discord.aurelia.event.BaningHandler;
+import com.discord.aurelia.event.BotInvite;
 import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.GuildHandler;
+import com.discord.aurelia.event.KickHandler;
 import com.discord.aurelia.event.MessageHandler;
 import com.discord.aurelia.event.ServerInfoHandler;
+import com.discord.aurelia.event.UserInfoHandler;
 import com.discord.aurelia.event.VoiceChatHandler;
 import com.discord.aurelia.event.WarningHandler;
 import com.nimbusds.oauth2.sdk.Message;
@@ -44,10 +47,16 @@ public class CommandCollection {
     private BaningHandler<Event> baning;
 
     @Autowired
+    private KickHandler<Event> kicking;
+
+    @Autowired
     private ServerInfoHandler<Event> serverInfo;
 
     @Autowired
-    private ServerInfoHandler<Event> userInfo;
+    private UserInfoHandler<Event> userInfo;
+
+    @Autowired
+    private BotInvite<Event> botInvite;
 
 @PostConstruct
  public void init(){
@@ -56,17 +65,22 @@ public class CommandCollection {
       Command<CommandInterface> command2 = new Command<>("!emoji",emoji);
       Command<CommandInterface> warnCommand = new Command<>("!warn",warning);
       Command<CommandInterface> banCommand = new Command<>("!ban", baning);
+      Command<CommandInterface> kickCommand = new Command<>("!kick", kicking);
       Command<CommandInterface> serverInfoCommand = new Command<>("!server-info", serverInfo);
       Command<CommandInterface> userInfoCommand = new Command<>("!user-info", userInfo);
+      Command<CommandInterface> botInviteCommand = new Command<>("!invite", botInvite);
       Command<CommandInterface> voiceCommand = new Command<>("!join",voiceChatHandler);
+
 
       addCommand(command);
       addCommand(command1);
       addCommand(command2);
       addCommand(warnCommand);
       addCommand(banCommand);
+      addCommand(kickCommand);
       addCommand(serverInfoCommand);
       addCommand(userInfoCommand);
+      addCommand(botInviteCommand);
       addCommand(voiceCommand);
  }
 
