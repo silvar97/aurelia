@@ -7,9 +7,7 @@ import java.util.Set;
 
 import com.discord.aurelia.event.CustomEventDispatcher;
 import com.discord.aurelia.model.Ban;
-import com.discord.aurelia.model.BanKey;
-import com.discord.aurelia.model.Guild;
-import com.discord.aurelia.model.User;
+import com.discord.aurelia.model.BanPK;
 import com.discord.aurelia.repository.BanRepository;
 import com.discord.aurelia.repository.GuildRepository;
 import com.discord.aurelia.repository.UserRepository;

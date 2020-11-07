@@ -8,7 +8,6 @@ package com.discord.aurelia.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -26,55 +25,55 @@ import javax.persistence.TemporalType;
  * @author Silvar
  */
 @Entity
-@Table(name = "ban")
+@Table(name = "mute")
 @NamedQueries({
-    @NamedQuery(name = "Ban.findAll", query = "SELECT b FROM Ban b")})
-public class Ban implements Serializable {
+    @NamedQuery(name = "Mute.findAll", query = "SELECT m FROM Mute m")})
+public class Mute implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected BanPK banPK;
+    protected MutePK mutePK;
     @Basic(optional = false)
-    @Column(name = "ban_time")
+    @Column(name = "mute_time")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date banTime;
-    @JoinColumn(name = "guild_id", referencedColumnName = "guild_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Date muteTime;
+    @JoinColumn(name = "db_guild_guild_id", referencedColumnName = "guild_id", insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private DbGuild dbGuild;
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "db_user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private DbUser dbUser;
 
-    public Ban() {
+    public Mute() {
     }
 
-    public Ban(BanPK banPK) {
-        this.banPK = banPK;
+    public Mute(MutePK mutePK) {
+        this.mutePK = mutePK;
     }
 
-    public Ban(BanPK banPK, Date banTime) {
-        this.banPK = banPK;
-        this.banTime = banTime;
+    public Mute(MutePK mutePK, Date muteTime) {
+        this.mutePK = mutePK;
+        this.muteTime = muteTime;
     }
 
-    public Ban(long userId, long guildId) {
-        this.banPK = new BanPK(userId, guildId);
+    public Mute(long dbGuildGuildId, long dbUserId) {
+        this.mutePK = new MutePK(dbGuildGuildId, dbUserId);
     }
 
-    public BanPK getBanPK() {
-        return banPK;
+    public MutePK getMutePK() {
+        return mutePK;
     }
 
-    public void setBanPK(BanPK banPK) {
-        this.banPK = banPK;
+    public void setMutePK(MutePK mutePK) {
+        this.mutePK = mutePK;
     }
 
-    public Date getBanTime() {
-        return banTime;
+    public Date getMuteTime() {
+        return muteTime;
     }
 
-    public void setBanTime(Date banTime) {
-        this.banTime = banTime;
+    public void setMuteTime(Date muteTime) {
+        this.muteTime = muteTime;
     }
 
     public DbGuild getDbGuild() {
@@ -96,18 +95,18 @@ public class Ban implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (banPK != null ? banPK.hashCode() : 0);
+        hash += (mutePK != null ? mutePK.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Ban)) {
+        if (!(object instanceof Mute)) {
             return false;
         }
-        Ban other = (Ban) object;
-        if ((this.banPK == null && other.banPK != null) || (this.banPK != null && !this.banPK.equals(other.banPK))) {
+        Mute other = (Mute) object;
+        if ((this.mutePK == null && other.mutePK != null) || (this.mutePK != null && !this.mutePK.equals(other.mutePK))) {
             return false;
         }
         return true;
@@ -115,7 +114,7 @@ public class Ban implements Serializable {
 
     @Override
     public String toString() {
-        return "com.discord.aurelia.model.Ban[ banPK=" + banPK + " ]";
+        return "com.discord.aurelia.model.Mute[ mutePK=" + mutePK + " ]";
     }
     
 }

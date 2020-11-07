@@ -12,6 +12,7 @@ import discord4j.core.GatewayDiscordClient;
 
 @Configuration
 @Order(4)
+@Lazy
 public class AureliaBotConfig {
 
     @Value("${token}")
@@ -22,6 +23,7 @@ public class AureliaBotConfig {
     }
 
     @Bean()
+    @Lazy
     public GatewayDiscordClient gateway() {
         final DiscordClient client = DiscordClient.create(token);
         final GatewayDiscordClient gateway = client.login().block();
