@@ -27,12 +27,15 @@ import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.message.MessageCreateEvent;
+import discord4j.core.object.Ban;
 import discord4j.core.object.entity.Guild;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.User;
 import discord4j.core.object.entity.channel.Channel;
 import discord4j.core.retriever.EntityRetrievalStrategy;
+import discord4j.core.spec.BanQuerySpec;
+import discord4j.core.spec.Spec;
 import discord4j.gateway.ShardInfo;
 import reactor.core.publisher.Mono;
 
@@ -69,7 +72,9 @@ class AureliaApplicationTests {
 		guild = gateway.getGuildById(Snowflake.of(759138832896884776l)).block();
 		channel = gateway.getChannelById(Snowflake.of(759388959754551296l)).block();
 		shardInfo = ShardInfo.create(0, 1);
-		
+		member.ban(s->{
+			s.getReason();
+		});
 		warningHandler.execute(new MessageCreateEvent(gateway, shardInfo, msg, guild.getId().asLong(), member));
 		assertEquals(1,((Cache) cache.getCache("warning").getNativeCache()).stats().missCount());
 		warningHandler.execute(new MessageCreateEvent(gateway, shardInfo, msg, guild.getId().asLong(), member));
