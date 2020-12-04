@@ -64,7 +64,7 @@ public class CommandCollection {
       Command<CommandInterface> command1 = new Command<>("!guild",GuildHandler.class);
       Command<CommandInterface> command2 = new Command<>("!emoji",emoji);
       Command<CommandInterface> warnCommand = new Command<>("!warn",warning);
-      Command<CommandInterface> banCommand = new Command<>("!ban", baning);
+      Command<CommandInterface> banCommand = new Command<>("-a ban", baning);
       Command<CommandInterface> kickCommand = new Command<>("!kick", kicking);
       Command<CommandInterface> serverInfoCommand = new Command<>("!server-info", serverInfo);
       Command<CommandInterface> userInfoCommand = new Command<>("!user-info", userInfo);

@@ -19,7 +19,6 @@ import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Role;
 import discord4j.core.object.entity.User;
 
-
 @Component
 public class KickHandler<T extends Event> implements CommandInterface {
 
@@ -50,20 +49,18 @@ public class KickHandler<T extends Event> implements CommandInterface {
              * Define user that GETS mentioned by another user
              */
             pingedUser = gateway.getMemberById(msgCreateEvent.getGuildId().get(), Snowflake.of(mentionedUser)).block();
-
+            
             /*
              * Check if role not empty
              */
             List<Role> list = msgCreateEvent.getMember().get().getRoles().collectList().block();
             if (list.size() == 0) {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                    e.setAuthor(msgCreateEvent.getMember().get().getTag(),
-                            msgCreateEvent.getMember().get().getDefaultAvatarUrl(),
-                            msgCreateEvent.getMember().get().getAvatarUrl());
                     e.setColor(Color.GRAY);
                     e.addField("Permission missing", "You need the `KICK_MEMBERS` permission to run this command.",
                             true);
                 }).block();
+                return;
             }
 
             long permLongUser = list.get(0).getPermissions().getRawValue();
@@ -72,34 +69,29 @@ public class KickHandler<T extends Event> implements CommandInterface {
             String moderator = String.format("%s", msgCreateEvent.getMessage().getAuthor().get().getTag());
 
             if (memberPermissionPresent == true) {
-                pingedUser.kick().block();
-                msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                    e.setColor(Color.YELLOW);
-                    e.setAuthor(pingedUser.getTag() + " has been kicked", pingedUser.getDefaultAvatarUrl(),
-                            pingedUser.getAvatarUrl());
-                    e.addField("Reason: ", "Todo... ", false);
-                    e.setFooter("Kicked by Moderator: " + msgCreateEvent.getMember().get().getTag(), null);
-                    e.setTimestamp(Instant.now());
-                }).block();
                 pingedUser.getPrivateChannel().block().createEmbed(p -> {
                     p.setColor(Color.DARK_GRAY);
                     p.addField("You got kicked from:", msgCreateEvent.getGuild().block().getName(), false);
                     p.addField("Moderator that executed command: ", moderator, false);
                     p.addField("Reason: ", "Todo...", true);
                 }).block();
+                pingedUser.kick().block();
+                msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
+                    e.setColor(Color.YELLOW);
+                    e.setAuthor(pingedUser.getTag() + " has been kicked", pingedUser.getDefaultAvatarUrl(),
+                            pingedUser.getAvatarUrl());
+                    e.addField("Reason: ", "Todo...", false);
+                    e.setFooter("Kicked by Moderator: " + msgCreateEvent.getMember().get().getTag(), null);
+                    e.setTimestamp(Instant.now());
+                }).block();
             } else {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                    e.setAuthor(msgCreateEvent.getMember().get().getTag(),
-                            msgCreateEvent.getMember().get().getDefaultAvatarUrl(),
-                            msgCreateEvent.getMember().get().getAvatarUrl());
                     e.setColor(Color.GRAY);
                     e.addField("Permission missing", "You need the `KICK_MEMBERS` permission to run this command.",
                             true);
                 }).block();
             }
-
         } else {
-
             msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
                 e.setColor(Color.RED);
                 e.setDescription("Missing arguments.\n Check the syntax of the command with `!help kick`.");
@@ -108,7 +100,6 @@ public class KickHandler<T extends Event> implements CommandInterface {
                 e.setTimestamp(Instant.now());
             }).block();
         }
-
     }
 
     @Override

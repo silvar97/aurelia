@@ -32,62 +32,74 @@ public class BaningHandler<T extends Event> implements CommandInterface {
          */
         MessageCreateEvent msgCreateEvent = (MessageCreateEvent) event;
 
+        final Member pingedUser;
+
         /*
          * Check if mentioned member is empty
          */
-        if (!msgCreateEvent.getMessage().getContent().matches(CommandConstant.WARN_COMMAND_REGEX)) {
-            msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                e.setColor(Color.RED);
-                e.setDescription("Missing arguments.");
-            }).block();
-        }
+        if (msgCreateEvent.getMessage().getContent().split(" ").length > 1) {
 
-        /*
-         * Define user who mentioned another user
-         */
-        String mentionedUser = msgCreateEvent.getMessage().getContent().replaceAll(" +", " ").split(" ")[1]
-                .replaceAll("[^0-9]", "");
+            /*
+             * Define user who mentioned another user
+             */
+            String mentionedUser = msgCreateEvent.getMessage().getContent().replaceAll(" +", " ").split(" ")[1]
+                    .replaceAll("[^0-9]", "");
 
-        /*
-         * Define user that GETS mentioned by another user
-         */
-        Member pingedUser = gateway.getMemberById(msgCreateEvent.getGuildId().get(), Snowflake.of(mentionedUser))
-                .block();
+            /*
+             * Define user that GETS mentioned by another user
+             */
+            pingedUser = gateway.getMemberById(msgCreateEvent.getGuildId().get(), Snowflake.of(mentionedUser)).block();
 
-        /*
-         * Check if member who ran the command has permission do to so
-         */
-
-        List<Role> list = msgCreateEvent.getMember().get().getRoles().collectList().block();
-        if (list.size() == 0) {
-            return;
-        }
-        long permLongUser = list.get(0).getPermissions().getRawValue();
-        boolean memberPermissionPresent = (permLongUser & 4) == 4;
-
-        if (memberPermissionPresent == true) {
-            pingedUser.ban(member -> {
-                member.setReason("Noob");
-                pingedUser.getPrivateChannel().block().createMessage(member.getReason()).block();
+            /*
+             * Check if role not empty
+             */
+            List<Role> list = msgCreateEvent.getMember().get().getRoles().collectList().block();
+            if (list.size() == 0) {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                    e.setAuthor(msgCreateEvent.getMember().get().getUsername(),
-                            msgCreateEvent.getMember().get().getDefaultAvatarUrl(),
-                            msgCreateEvent.getMember().get().getAvatarUrl());
-                    e.addField("**Banned**: ", pingedUser.getUsername(), true);
-                    e.addField("**Reason**: ", "Test", true);
-                    e.setColor(Color.RED);
-                    e.setTimestamp(Instant.now());
-                    return;
+                    e.setColor(Color.GRAY);
+                    e.addField("Permission missing", "You need the `BAN_MEMBERS` permission to run this command.",
+                            true);
                 }).block();
-            }).block();
+                return;
+            }
+
+            long permLongUser = list.get(0).getPermissions().getRawValue();
+            boolean memberPermissionPresent = (permLongUser & 2) == 2;
+
+            String moderator = String.format("%s", msgCreateEvent.getMessage().getAuthor().get().getTag());
+
+            if (memberPermissionPresent == true) {
+                pingedUser.getPrivateChannel().block().createEmbed(p -> {
+                    p.setColor(Color.DARK_GRAY);
+                    p.addField("You got banned from:", msgCreateEvent.getGuild().block().getName(), false);
+                    p.addField("Moderator that executed command: ", moderator, false);
+                    p.addField("Reason: ", "Todo...", true);
+                }).block();
+                pingedUser.ban(member -> {
+                    member.setReason("Test");
+                    msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
+                        e.setColor(Color.YELLOW);
+                        e.setAuthor(pingedUser.getTag() + " has been banned", pingedUser.getDefaultAvatarUrl(),
+                                pingedUser.getAvatarUrl());
+                        e.addField("Reason: ", "Todo...", false);
+                        e.setFooter("Banned by Moderator: " + msgCreateEvent.getMember().get().getTag(), null);
+                        e.setTimestamp(Instant.now());
+                    }).block();
+                }).block();
+            } else {
+                msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
+                    e.setColor(Color.GRAY);
+                    e.addField("Permission missing", "You need the `BAN_MEMBERS` permission to run this command.",
+                            true);
+                }).block();
+            }
         } else {
             msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                e.setAuthor(msgCreateEvent.getMember().get().getUsername(),
-                        msgCreateEvent.getMember().get().getDefaultAvatarUrl(),
-                        msgCreateEvent.getMember().get().getAvatarUrl());
                 e.setColor(Color.RED);
-                e.addField("Permission missing", "You need the **Ban Member** permission to run this command.", true);
-                return;
+                e.setDescription("Missing arguments.\n Check the syntax of the command with `!help ban`.");
+                e.setFooter("Requested by " + msgCreateEvent.getMember().get().getTag(),
+                        msgCreateEvent.getMember().get().getAvatarUrl());
+                e.setTimestamp(Instant.now());
             }).block();
         }
 
