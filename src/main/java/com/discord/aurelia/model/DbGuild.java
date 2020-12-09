@@ -31,6 +31,9 @@ import javax.persistence.Table;
     @NamedQuery(name = "DbGuild.findAll", query = "SELECT d FROM DbGuild d")})
 public class DbGuild implements Serializable {
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "dbGuild", fetch = FetchType.LAZY)
+    private Auditlog auditlog;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -126,6 +129,14 @@ public class DbGuild implements Serializable {
     @Override
     public String toString() {
         return "com.discord.aurelia.model.DbGuild[ guildId=" + guildId + " ]";
+    }
+
+    public Auditlog getAuditlog() {
+        return auditlog;
+    }
+
+    public void setAuditlog(Auditlog auditlog) {
+        this.auditlog = auditlog;
     }
     
 }
