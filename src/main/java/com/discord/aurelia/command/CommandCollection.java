@@ -13,7 +13,9 @@ import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.GuildHandler;
 import com.discord.aurelia.event.KickHandler;
 import com.discord.aurelia.event.MessageHandler;
+import com.discord.aurelia.event.ReactionRoleAdding;
 import com.discord.aurelia.event.ServerInfoHandler;
+import com.discord.aurelia.event.UserAvatarDisplay;
 import com.discord.aurelia.event.UserInfoHandler;
 import com.discord.aurelia.event.VoiceChatHandler;
 import com.discord.aurelia.event.WarningHandler;
@@ -58,19 +60,26 @@ public class CommandCollection {
     @Autowired
     private BotInvite<Event> botInvite;
 
+    @Autowired
+    private UserAvatarDisplay<Event> userAvatarDisplay;
+
+    @Autowired
+    private ReactionRoleAdding<Event> reactionRoleAdding;
+
 @PostConstruct
  public void init(){
       Command<CommandInterface> command = new Command<>("!habib",EmojiHandler.class);
       Command<CommandInterface> command1 = new Command<>("!guild",GuildHandler.class);
       Command<CommandInterface> command2 = new Command<>("!emoji",emoji);
       Command<CommandInterface> warnCommand = new Command<>("!warn",warning);
-      Command<CommandInterface> banCommand = new Command<>("-a ban", baning);
+      Command<CommandInterface> banCommand = new Command<>("!ban", baning);
       Command<CommandInterface> kickCommand = new Command<>("!kick", kicking);
       Command<CommandInterface> serverInfoCommand = new Command<>("!server-info", serverInfo);
       Command<CommandInterface> userInfoCommand = new Command<>("!user-info", userInfo);
       Command<CommandInterface> botInviteCommand = new Command<>("!invite", botInvite);
       Command<CommandInterface> voiceCommand = new Command<>("!join",voiceChatHandler);
-
+      Command<CommandInterface> userAvatarDisplayCommand = new Command<>("!avatar", userAvatarDisplay);
+      Command<CommandInterface> ReactionRoleAddingCommand = new Command<>("!rr-add", reactionRoleAdding);
 
       addCommand(command);
       addCommand(command1);
@@ -82,6 +91,8 @@ public class CommandCollection {
       addCommand(userInfoCommand);
       addCommand(botInviteCommand);
       addCommand(voiceCommand);
+      addCommand(userAvatarDisplayCommand);
+      addCommand(ReactionRoleAddingCommand);
  }
 
     public void addCommand(Command<CommandInterface> command) {

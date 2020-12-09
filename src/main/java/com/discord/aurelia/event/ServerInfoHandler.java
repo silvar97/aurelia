@@ -17,8 +17,6 @@ import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.channel.Channel.Type;
 import discord4j.core.object.presence.Status;
 
-
-
 @Component
 public class ServerInfoHandler<T extends Event> implements CommandInterface {
 
@@ -83,7 +81,6 @@ public class ServerInfoHandler<T extends Event> implements CommandInterface {
                                 e.addField("Boost Level", levelOfBoosts, true);
                                 e.setFooter("Server Created: " + str.format(format) + " | ServerID: "
                                                 + msgCreateEvent.getGuild().block().getId().asString(), null);
-                                return;
                         }).block();
                 }
         }

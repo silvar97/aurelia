@@ -102,34 +102,6 @@ public class BaningHandler<T extends Event> implements CommandInterface {
                 e.setTimestamp(Instant.now());
             }).block();
         }
-
-        /*
-         * Check if bot has the permission to ran the command
-         */
-        // long permLongBot =
-        // msgCreateEvent.getGuild().block().getRoles().collectList().block().get(0).getPermissions()
-        // .getRawValue();
-        // boolean botPermissionPresent = (permLongBot & 4) == 4;
-
-        // else if (botPermissionPresent == true){
-        // pingedUser.ban(member -> {
-        // member.setReason("Test");
-        // pingedUser.getPrivateChannel().block().createMessage(member.getReason()).block();
-        // msgCreateEvent.getMessage().getChannel().block()
-        // .createMessage("The user: " + pingedUser.getUsername() + "\nGot banned from
-        // this Server.").block();
-        // }).block();
-
-        /*
-         * Ban member
-         */
-        // pingedUser.ban(member -> {
-        // member.setReason("Stinker");
-        // pingedUser.getPrivateChannel().block().createMessage(member.getReason()).block();
-        // msgCreateEvent.getMessage().getChannel().block()
-        // .createMessage(pingedUser.getUsername() + " got banned from this
-        // Server!").block();
-        // }).block();
     }
 
     @Override

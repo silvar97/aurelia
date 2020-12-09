@@ -18,6 +18,7 @@ import java.util.Optional;
 import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.rest.util.Color;
+import discord4j.rest.util.Image;
 import discord4j.rest.util.Image.Format;
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.message.MessageCreateEvent;
@@ -28,10 +29,7 @@ import discord4j.core.object.entity.channel.Channel.Type;
 import discord4j.core.object.presence.Status;
 
 @Component
-public class UserInfoHandler<T extends Event> implements CommandInterface {
-
-    @Autowired
-    private WarningRepository warning;
+public class UserAvatarDisplay<T extends Event> implements CommandInterface {
 
     @Autowired
     private GatewayDiscordClient gateway;
@@ -62,30 +60,10 @@ public class UserInfoHandler<T extends Event> implements CommandInterface {
             pingedUser = msgCreateEvent.getMember().get();
         }
         
-        String userHighestRoles = String.format("%s\n", pingedUser.getHighestRole().block().getName());
-        String userOnlineStatus = String.format("%s\n", pingedUser.getPresence().block().getStatus());
-        LocalDateTime userServerJoiningTime = LocalDateTime.ofInstant(pingedUser.getJoinTime(), ZoneId.systemDefault());
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("EEEE, MMM dd, yyyy HH:mm:ss a");
-        LocalDateTime userDiscordJoiningTime = LocalDateTime.ofInstant(pingedUser.getId().getTimestamp(),
-                ZoneId.systemDefault());
-
         msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
             e.setColor(Color.DARK_GRAY);
-            e.setThumbnail(pingedUser.getAvatarUrl());
-            e.addField("User Information for " + pingedUser.getTag(), "UserID: " + pingedUser.getId().asString(), true);
-            e.addField("Highest Role on Server", userHighestRoles, true);
-            e.addField("Server Violations", "Todo...", true);
-            e.addField("Joined Server at", userServerJoiningTime.format(format), true);
-            e.addField("Joined Discord at", userDiscordJoiningTime.format((format)), true);
-            e.addField("Status", userOnlineStatus, true);
-            Optional<Instant> instant = pingedUser.getPremiumTime();
-            if (instant.isPresent()) {
-                LocalDateTime time = LocalDateTime.ofInstant(instant.get(), ZoneId.systemDefault());
-                e.addField("Boosting Since", time.format(format), true);
-            } else {
-                e.addField("Boosting Since", "Not boosting", true);
-            }
-            e.setFooter("Requested by " + pingedUser.getTag() + " | " + pingedUser.getId().asString(), pingedUser.getAvatarUrl());
+            e.setDescription("Avatar of " + pingedUser.getTag());
+            e.setImage(pingedUser.getAvatarUrl()+ "?size=512");
         }).block();
 
     }

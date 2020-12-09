@@ -1,10 +1,8 @@
 package com.discord.aurelia.event;
 
 import com.discord.aurelia.command.CommandInterface;
-import com.discord.aurelia.constant.CommandConstant;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -17,7 +15,6 @@ import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Role;
-import discord4j.core.object.entity.User;
 
 @Component
 public class KickHandler<T extends Event> implements CommandInterface {
