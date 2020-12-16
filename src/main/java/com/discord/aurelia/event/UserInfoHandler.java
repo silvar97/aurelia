@@ -85,7 +85,11 @@ public class UserInfoHandler<T extends Event> implements CommandInterface {
             } else {
                 e.addField("Boosting Since", "Not boosting", true);
             }
+            if (msgCreateEvent.getMessage().getContent().split(" ").length > 1){
+                e.setFooter("Requested by " + msgCreateEvent.getMessage().getAuthor().get().getTag() + " | " + msgCreateEvent.getMessage().getAuthor().get().getId().asString(), msgCreateEvent.getMessage().getAuthor().get().getAvatarUrl());
+            } else {
             e.setFooter("Requested by " + pingedUser.getTag() + " | " + pingedUser.getId().asString(), pingedUser.getAvatarUrl());
+            }
         }).block();
 
     }
