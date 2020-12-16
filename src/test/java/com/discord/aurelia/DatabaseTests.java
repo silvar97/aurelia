@@ -1,11 +1,8 @@
 package com.discord.aurelia;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import com.discord.aurelia.model.Auditlog;
@@ -26,7 +23,6 @@ import com.discord.aurelia.repository.WarningRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -84,6 +80,7 @@ public class DatabaseTests {
         guild.setSetting(setting);
         guild.setOwnerId(owner);
         setting.setDbGuild(guild);
+       
         WarningPK warningPk = new WarningPK(guild.getGuildId(), warnedUser.getId());
         Warning warning = new Warning(warningPk);
         warning.setMaxWarnings(guild.getSetting().getMaxWarnings());
@@ -129,7 +126,6 @@ public class DatabaseTests {
 
     @Test
     public void auditLogTest() {
-
         DbUser owner = new DbUser(1l);
         DbGuild guild = new DbGuild(owner.getId());
         guild.setOwnerId(owner);
