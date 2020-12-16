@@ -76,7 +76,20 @@ public class MessageHandler<T extends MessageEvent> implements CommandInterface 
         // member.setReason("");
         // }).block();
         // event.getMember().get().unban();
+<<<<<<< HEAD
        if (event.getMessage().getContent().split(" ")[0].matches("(^[^0-9A-Za-z])([a-zA-Z]+)(?:-[A-Za-z]+)?")) {
+=======
+
+        // if(reactionRoleCommand.getSize()>0){
+        //     if(reactionRoleCommand.hasUser(event.getMember().get())==true){
+        //         //das ist der richtige user der den command ausgeführt hat
+        //         // optional den channel prüfen
+        //         reactionRoleCommand.handle(event);
+        //     }
+        // }
+
+       if (event.getMessage().getContent().matches("(^[^0-9A-Za-z])([a-z]+)(?: [a-zA-Z0-9\\D]+)?")) {
+>>>>>>> dc25a389a36b90456d836ea62ca00b76609cf0d2
             Command command = commandCollection.getCommands().get(event.getMessage().getContent().split(" ")[0]);
             if (command != null) {
                 command.getHandler().execute(event);

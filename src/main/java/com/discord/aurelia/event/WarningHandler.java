@@ -27,11 +27,17 @@ import org.springframework.stereotype.Component;
 import discord4j.common.util.Snowflake;
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.message.MessageCreateEvent;
+import discord4j.core.object.entity.GuildEmoji;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.Role;
+import discord4j.core.object.reaction.ReactionEmoji;
+import discord4j.core.object.reaction.ReactionEmoji.Custom;
 import discord4j.core.spec.EmbedCreateSpec;
+import discord4j.core.spec.GuildEmojiCreateSpec;
 import discord4j.discordjson.json.EmbedData;
+import discord4j.discordjson.json.EmojiData;
+import discord4j.discordjson.json.GuildEmojiCreateRequest;
 import discord4j.rest.util.Color;
 import discord4j.rest.util.Permission;
 import reactor.core.publisher.Mono;
@@ -64,14 +70,21 @@ public class WarningHandler<T extends Event> implements CommandInterface {
          */
         MessageCreateEvent msgCreateEvent = (MessageCreateEvent) event;
 
-        Mono<Message> monoMsg = msgCreateEvent.getMessage().getChannel().block().createEmbed(spec->{
-            spec.setTitle("TITLE");
-        });
-        Message msg = monoMsg.block();
-        msg.delete().delaySubscription(Duration.ofSeconds(5)).subscribe();
+        // Mono<Message> monoMsg = msgCreateEvent.getMessage().getChannel().block().createEmbed(spec->{
+        //     spec.setTitle("TITLE");
+        // });
+        // Message msg = monoMsg.block();
+        // msg.delete().delaySubscription(Duration.ofSeconds(5)).subscribe();
+    //    Custom c= ReactionEmoji.custom(Snowflake.of(785153085793763358l), "Au_Yeet", true);
+    //    if(c.asCustomEmoji().isPresent()){
+    //        System.out.println( c.asCustomEmoji().get());
+    //        msgCreateEvent.getMessage().getChannel().block().createMessage(s->{
+    //            s.set
+    //        }).block();
+    //    }
+      msgCreateEvent.getMessage().getChannel().block().createMessage("<a:a:785153085793763358>").block();
         
-
-            final Member pingedUser;
+        final Member pingedUser;
 
         /*
          * Check if mentioned member is empty
