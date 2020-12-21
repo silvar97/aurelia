@@ -1,8 +1,9 @@
 package com.discord.aurelia.event;
 
-
 import com.discord.aurelia.command.CommandCollection;
-import com.github.benmanes.caffeine.cache.Cache;
+import com.discord.aurelia.handler.EmojiHandler;
+import com.discord.aurelia.handler.GuildHandler;
+import com.discord.aurelia.handler.MessageHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -66,7 +67,6 @@ import discord4j.core.event.domain.message.ReactionRemoveEvent;
 import discord4j.core.event.domain.role.RoleCreateEvent;
 import discord4j.core.event.domain.role.RoleDeleteEvent;
 import discord4j.core.event.domain.role.RoleUpdateEvent;
-import discord4j.core.object.entity.channel.Channel;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -83,8 +83,8 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     @Autowired
     @Qualifier("commandCollection")
     private CommandCollection commands;
-    @Autowired
-    private CacheManager cacheManager;
+    // @Autowired
+    // private CacheManager cacheManager;
     // @Autowired
     // private CommandDescriptionHandler cmdDescHandler;
     // @Autowired

@@ -1,4 +1,4 @@
-package com.discord.aurelia.event;
+package com.discord.aurelia.handler;
 
 import discord4j.core.event.domain.Event;
 

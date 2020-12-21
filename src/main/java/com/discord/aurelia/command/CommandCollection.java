@@ -7,11 +7,11 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import com.discord.aurelia.event.EmojiHandler;
-import com.discord.aurelia.event.GuildHandler;
-import com.discord.aurelia.event.MessageHandler;
-import com.discord.aurelia.event.VoiceChatHandler;
-import com.discord.aurelia.event.WarningHandler;
+import com.discord.aurelia.handler.EmojiHandler;
+import com.discord.aurelia.handler.GuildHandler;
+import com.discord.aurelia.handler.MessageHandler;
+import com.discord.aurelia.handler.VoiceChatHandler;
+import com.discord.aurelia.handler.WarningHandler;
 import com.nimbusds.oauth2.sdk.Message;
 
 import org.springframework.beans.factory.annotation.Autowired;
