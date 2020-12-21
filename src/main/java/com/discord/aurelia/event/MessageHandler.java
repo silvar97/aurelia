@@ -3,6 +3,7 @@ package com.discord.aurelia.event;
 import com.discord.aurelia.command.Command;
 import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.command.CommandInterface;
+import com.discord.aurelia.temp.UserMessageMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -30,7 +31,10 @@ public class MessageHandler<T extends MessageEvent> implements CommandInterface 
     private CommandCollection commandCollection;
     @Autowired
     private ApplicationContext context;
-
+    @Autowired
+    private UserMessageMap userMessageMap;
+    @Autowired
+    private CommandDescriptionHandler cmdHandler;
     public MessageHandler() {
         System.out.println("MessageHandler created");
     }
@@ -76,7 +80,24 @@ public class MessageHandler<T extends MessageEvent> implements CommandInterface 
         // member.setReason("");
         // }).block();
         // event.getMember().get().unban();
+<<<<<<< HEAD
        if (event.getMessage().getContent().split(" ")[0].matches("(^[^0-9A-Za-z])([a-zA-Z]+)(?:-[A-Za-z]+)?")) {
+=======
+
+        // if(reactionRoleCommand.getSize()>0){
+        //     if(reactionRoleCommand.hasUser(event.getMember().get())==true){
+        //         //das ist der richtige user der den command ausgeführt hat
+        //         // optional den channel prüfen
+        //         reactionRoleCommand.handle(event);
+        //     }
+        // }
+
+        if(userMessageMap.containsMessageId(event.getMessage().getId().asLong())){
+                cmdHandler.execute(event);
+        }
+
+       if (event.getMessage().getContent().matches("(^[^0-9A-Za-z])([a-z]+)(?: [a-zA-Z0-9\\D]+)?")) {
+>>>>>>> 6164a8514eaf1a8d33d4568dbce18edf5f992020
             Command command = commandCollection.getCommands().get(event.getMessage().getContent().split(" ")[0]);
             if (command != null) {
                 command.getHandler().execute(event);

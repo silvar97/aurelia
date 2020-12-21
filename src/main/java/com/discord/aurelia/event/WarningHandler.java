@@ -82,8 +82,16 @@ public class WarningHandler<T extends Event> implements CommandInterface {
     //            s.set
     //        }).block();
     //    }
-      msgCreateEvent.getMessage().getChannel().block().createMessage("<a:a:785153085793763358>").block();
         
+        // msgCreateEvent.getMessage().getChannel().block().createEmbed(spec->{
+        //     spec.setDescription("Commandhelper: blablabla");
+        // }).block();
+
+
+
+
+
+
         final Member pingedUser;
 
         /*

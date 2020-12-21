@@ -7,8 +7,11 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+<<<<<<< HEAD
 import com.discord.aurelia.event.BaningHandler;
 import com.discord.aurelia.event.BotInvite;
+=======
+>>>>>>> 6164a8514eaf1a8d33d4568dbce18edf5f992020
 import com.discord.aurelia.event.CommandDescriptionHandler;
 import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.GuildHandler;
@@ -42,6 +45,8 @@ public class CommandCollection {
     private WarningHandler<Event> warning;
     @Autowired
     private VoiceChatHandler<Event> voiceChatHandler;
+    @Autowired
+    private CommandDescriptionHandler cmdDescript;
 
     public CommandCollection(){
         System.out.println("commandCollection");
@@ -82,10 +87,14 @@ public class CommandCollection {
       Command<CommandInterface> userInfoCommand = new Command<>("!user-info", userInfo);
       Command<CommandInterface> botInviteCommand = new Command<>("!invite", botInvite);
       Command<CommandInterface> voiceCommand = new Command<>("!join",voiceChatHandler);
+<<<<<<< HEAD
       Command<CommandInterface> userAvatarDisplayCommand = new Command<>("!avatar", userAvatarDisplay);
       Command<CommandInterface> reactionRoleAddingCommand = new Command<>("!rr-add", reactionRoleAdding);
       Command<CommandInterface> commandDescriptionHandler = new Command<>("!test", commandDescription);
 
+=======
+      Command<CommandInterface> commandHelper= new Command<>("!test",cmdDescript);
+>>>>>>> 6164a8514eaf1a8d33d4568dbce18edf5f992020
       addCommand(command);
       addCommand(command1);
       addCommand(command2);
@@ -96,9 +105,13 @@ public class CommandCollection {
       addCommand(userInfoCommand);
       addCommand(botInviteCommand);
       addCommand(voiceCommand);
+<<<<<<< HEAD
       addCommand(userAvatarDisplayCommand);
       addCommand(reactionRoleAddingCommand);
       addCommand(commandDescriptionHandler);
+=======
+      addCommand(commandHelper);
+>>>>>>> 6164a8514eaf1a8d33d4568dbce18edf5f992020
  }
 
     public void addCommand(Command<CommandInterface> command) {
