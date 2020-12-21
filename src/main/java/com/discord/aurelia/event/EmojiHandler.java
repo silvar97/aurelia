@@ -24,5 +24,11 @@ public class EmojiHandler<T extends EmojisUpdateEvent> implements CommandInterfa
 
         }
 
+        @Override
+        public String description() {
+                // TODO Auto-generated method stub
+                return "null";
+        }
+
   
 }

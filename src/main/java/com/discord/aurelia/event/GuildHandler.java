@@ -34,6 +34,12 @@ public class GuildHandler<T extends GuildEvent> implements CommandInterface {
         System.out.println("guildHandler");
     }
 
+    @Override
+    public String description() {
+        // TODO Auto-generated method stub
+        return "null";
+    }
+
   
 
     // private void onGuildDelete(GuildDeleteEvent event) {

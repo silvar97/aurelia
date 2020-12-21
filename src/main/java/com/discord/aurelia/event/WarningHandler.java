@@ -164,4 +164,10 @@ public class WarningHandler<T extends Event> implements CommandInterface {
         }
     }
 
+    @Override
+    public String description() {
+        // TODO Auto-generated method stub
+        return "null";
+    }
+
 }
