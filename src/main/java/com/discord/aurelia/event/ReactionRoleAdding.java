@@ -27,11 +27,8 @@ public class ReactionRoleAdding<T extends Event> implements CommandInterface {
          */
         MessageCreateEvent msgCreateEvent = (MessageCreateEvent) event;
         
-        if(!msgCreateEvent.getMember().get().isBot()){
-            //msgCreateEvent.getMember().get()
-           
-        }
-    
+        
+
         // msgCreateEvent.getMessage().getChannel().block().createMessage("Time to steal Uncles stairs tonight?").block();
         // msgCreateEvent.getMessage().getChannel().block().getLastMessage().block().addReaction(ReactionEmoji.unicode("✅")).block();
         // msgCreateEvent.getMessage().getChannel().block().getLastMessage().block().addReaction(ReactionEmoji.unicode("❌")).block();  
