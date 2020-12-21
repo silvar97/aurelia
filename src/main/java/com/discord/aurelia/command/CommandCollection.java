@@ -7,9 +7,12 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+<<<<<<< HEAD
 import com.discord.aurelia.event.BaningHandler;
 import com.discord.aurelia.event.BotInvite;
 import com.discord.aurelia.event.CommandDescriptionHandler;
+=======
+>>>>>>> 0d5f21e072f08b2ded6de9a93a4adbd9975be18c
 import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.GuildHandler;
 import com.discord.aurelia.event.KickHandler;
@@ -42,8 +45,8 @@ public class CommandCollection {
     private WarningHandler<Event> warning;
     @Autowired
     private VoiceChatHandler<Event> voiceChatHandler;
-    @Autowired
-    private CommandDescriptionHandler cmdDescript;
+    // @Autowired
+    // private CommandDescriptionHandler cmdDescript;
 
     public CommandCollection(){
         System.out.println("commandCollection");
@@ -81,10 +84,14 @@ public class CommandCollection {
       Command<CommandInterface> userInfoCommand = new Command<>("!user-info", userInfo);
       Command<CommandInterface> botInviteCommand = new Command<>("!invite", botInvite);
       Command<CommandInterface> voiceCommand = new Command<>("!join",voiceChatHandler);
+<<<<<<< HEAD
       Command<CommandInterface> userAvatarDisplayCommand = new Command<>("!avatar", userAvatarDisplay);
       Command<CommandInterface> reactionRoleAddingCommand = new Command<>("!rr-add", reactionRoleAdding);
       Command<CommandInterface> commandHelper= new Command<>("!test",cmdDescript);
       
+=======
+    //   Command<CommandInterface> commandHelper= new Command<>("!test",cmdDescript);
+>>>>>>> 0d5f21e072f08b2ded6de9a93a4adbd9975be18c
       addCommand(command);
       addCommand(command1);
       addCommand(command2);
@@ -95,9 +102,13 @@ public class CommandCollection {
       addCommand(userInfoCommand);
       addCommand(botInviteCommand);
       addCommand(voiceCommand);
+<<<<<<< HEAD
       addCommand(userAvatarDisplayCommand);
       addCommand(reactionRoleAddingCommand);
       addCommand(commandHelper);
+=======
+    //   addCommand(commandHelper);
+>>>>>>> 0d5f21e072f08b2ded6de9a93a4adbd9975be18c
  }
 
     public void addCommand(Command<CommandInterface> command) {

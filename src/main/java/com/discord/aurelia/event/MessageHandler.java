@@ -33,8 +33,8 @@ public class MessageHandler<T extends MessageEvent> implements CommandInterface 
     private ApplicationContext context;
     @Autowired
     private UserMessageMap userMessageMap;
-    @Autowired
-    private CommandDescriptionHandler cmdHandler;
+    // @Autowired
+    // private CommandDescriptionHandler cmdHandler;
     public MessageHandler() {
         System.out.println("MessageHandler created");
     }
@@ -89,9 +89,9 @@ public class MessageHandler<T extends MessageEvent> implements CommandInterface 
         //     }
         // }
 
-        if(userMessageMap.containsMessageId(event.getMessage().getId().asLong())){
-                cmdHandler.execute(event);
-        }
+        // if(userMessageMap.containsMessageId(event.getMessage().getId().asLong())){
+        //         cmdHandler.execute(event);
+        // }
 
        if (event.getMessage().getContent().matches("(^[^0-9A-Za-z])([a-z]+)(?: [a-zA-Z0-9\\D]+)?")) {
             Command command = commandCollection.getCommands().get(event.getMessage().getContent().split(" ")[0]);
@@ -123,9 +123,15 @@ public class MessageHandler<T extends MessageEvent> implements CommandInterface 
     }
 
     @Override
+<<<<<<< HEAD
     public String getDescription() {
         // TODO Auto-generated method stub
         return null;
+=======
+    public String description() {
+        // TODO Auto-generated method stub
+        return "null";
+>>>>>>> 0d5f21e072f08b2ded6de9a93a4adbd9975be18c
     }
 
 }

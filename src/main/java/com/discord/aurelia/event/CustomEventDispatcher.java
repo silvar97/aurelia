@@ -84,8 +84,8 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     private CommandCollection commands;
     @Autowired
     private CacheManager cacheManager;
-    @Autowired
-    private CommandDescriptionHandler cmdDescHandler;
+    // @Autowired
+    // private CommandDescriptionHandler cmdDescHandler;
     // @Autowired
     // private GatewayDiscordClient gateway;
     @Autowired
@@ -311,7 +311,7 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onReactionAdd(ReactionAddEvent event) {
-        cmdDescHandler.execute(event);
+        // cmdDescHandler.execute(event);
         return Mono.empty();
     }
 
@@ -321,7 +321,7 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onReactionRemove(ReactionRemoveEvent event) {
-        cmdDescHandler.execute(event);
+        // cmdDescHandler.execute(event);
         return Mono.empty();
     }
 
