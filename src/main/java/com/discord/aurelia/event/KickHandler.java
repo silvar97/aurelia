@@ -46,7 +46,7 @@ public class KickHandler<T extends Event> implements CommandInterface {
              * Define user that GETS mentioned by another user
              */
             pingedUser = gateway.getMemberById(msgCreateEvent.getGuildId().get(), Snowflake.of(mentionedUser)).block();
-            
+
             /*
              * Check if role not empty
              */
@@ -100,9 +100,9 @@ public class KickHandler<T extends Event> implements CommandInterface {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         // TODO Auto-generated method stub
-        return "Kicks a User from the Server.\n !kick <user:mention/ID> (reason)";
+        return null;
     }
 
 }

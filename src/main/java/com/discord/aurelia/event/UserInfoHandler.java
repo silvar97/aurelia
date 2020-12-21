@@ -93,9 +93,9 @@ public class UserInfoHandler<T extends Event> implements CommandInterface {
         }).block();
 
     }
-
+    
     @Override
-    public String getDescription() {
+    public String description() {
         // TODO Auto-generated method stub
         return null;
     }

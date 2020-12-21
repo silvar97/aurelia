@@ -72,7 +72,7 @@ public class UserAvatarDisplay<T extends Event> implements CommandInterface {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         // TODO Auto-generated method stub
         return null;
     }

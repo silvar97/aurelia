@@ -105,9 +105,9 @@ public class BaningHandler<T extends Event> implements CommandInterface {
     }
 
     @Override
-    public String getDescription() {
+    public String description() {
         // TODO Auto-generated method stub
-        return "Bans a user from the server.\n !ban <@user> <reason> (optional)";
+        return null;
     }
 
 }

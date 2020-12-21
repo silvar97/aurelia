@@ -35,18 +35,10 @@ public class GuildHandler<T extends GuildEvent> implements CommandInterface {
     }
 
     @Override
-<<<<<<< HEAD
-    public String getDescription() {
-        // TODO Auto-generated method stub
-        return null;
-=======
     public String description() {
         // TODO Auto-generated method stub
         return "null";
->>>>>>> 0d5f21e072f08b2ded6de9a93a4adbd9975be18c
     }
-
-  
 
     // private void onGuildDelete(GuildDeleteEvent event) {
     // }
@@ -55,13 +47,13 @@ public class GuildHandler<T extends GuildEvent> implements CommandInterface {
     // }
 
     // private void hookOnEvent(Event event) {
-    //     if (event instanceof GuildCreateEvent)
-    //         onGuildCreate((GuildCreateEvent) event);
-    //     else if (event instanceof GuildDeleteEvent)
-    //         onGuildDelete((GuildDeleteEvent) event);
-    //     else if (event instanceof GuildUpdateEvent)
-    //         onGuildUpdate((GuildUpdateEvent) event);
-            
+    // if (event instanceof GuildCreateEvent)
+    // onGuildCreate((GuildCreateEvent) event);
+    // else if (event instanceof GuildDeleteEvent)
+    // onGuildDelete((GuildDeleteEvent) event);
+    // else if (event instanceof GuildUpdateEvent)
+    // onGuildUpdate((GuildUpdateEvent) event);
+
     // }
     // // addHandler(GuildBanRemove.class, GuildDispatchHandlers::guildBanRemove);
     // GuildDispatchHandlers::guildEmojisUpdate);

@@ -7,12 +7,9 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-<<<<<<< HEAD
 import com.discord.aurelia.event.BaningHandler;
 import com.discord.aurelia.event.BotInvite;
-import com.discord.aurelia.event.CommandDescriptionHandler;
-=======
->>>>>>> 0d5f21e072f08b2ded6de9a93a4adbd9975be18c
+//import com.discord.aurelia.event.CommandDescriptionHandler;
 import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.GuildHandler;
 import com.discord.aurelia.event.KickHandler;
@@ -33,12 +30,11 @@ import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.guild.EmojisUpdateEvent;
 import discord4j.core.event.domain.message.MessageEvent;
 
-
 @Component
 @Order(1)
 public class CommandCollection {
 
-    private Map<String,Command<CommandInterface>> commands = new HashMap<>();
+    private Map<String, Command<CommandInterface>> commands = new HashMap<>();
     @Autowired
     private EmojiHandler<EmojisUpdateEvent> emoji;
     @Autowired
@@ -48,9 +44,10 @@ public class CommandCollection {
     // @Autowired
     // private CommandDescriptionHandler cmdDescript;
 
-    public CommandCollection(){
+    public CommandCollection() {
         System.out.println("commandCollection");
     }
+
     @Autowired
     private BaningHandler<Event> baning;
 
@@ -72,50 +69,44 @@ public class CommandCollection {
     @Autowired
     private ReactionRoleAdding<Event> reactionRoleAdding;
 
-@PostConstruct
- public void init(){
-      Command<CommandInterface> command = new Command<>("!habib",EmojiHandler.class);
-      Command<CommandInterface> command1 = new Command<>("!guild",GuildHandler.class);
-      Command<CommandInterface> command2 = new Command<>("!emoji",emoji);
-      Command<CommandInterface> warnCommand = new Command<>("!warn",warning);
-      Command<CommandInterface> banCommand = new Command<>("!ban", baning);
-      Command<CommandInterface> kickCommand = new Command<>("!kick", kicking);
-      Command<CommandInterface> serverInfoCommand = new Command<>("!server-info", serverInfo);
-      Command<CommandInterface> userInfoCommand = new Command<>("!user-info", userInfo);
-      Command<CommandInterface> botInviteCommand = new Command<>("!invite", botInvite);
-      Command<CommandInterface> voiceCommand = new Command<>("!join",voiceChatHandler);
-<<<<<<< HEAD
-      Command<CommandInterface> userAvatarDisplayCommand = new Command<>("!avatar", userAvatarDisplay);
-      Command<CommandInterface> reactionRoleAddingCommand = new Command<>("!rr-add", reactionRoleAdding);
-      Command<CommandInterface> commandHelper= new Command<>("!test",cmdDescript);
-      
-=======
-    //   Command<CommandInterface> commandHelper= new Command<>("!test",cmdDescript);
->>>>>>> 0d5f21e072f08b2ded6de9a93a4adbd9975be18c
-      addCommand(command);
-      addCommand(command1);
-      addCommand(command2);
-      addCommand(warnCommand);
-      addCommand(banCommand);
-      addCommand(kickCommand);
-      addCommand(serverInfoCommand);
-      addCommand(userInfoCommand);
-      addCommand(botInviteCommand);
-      addCommand(voiceCommand);
-<<<<<<< HEAD
-      addCommand(userAvatarDisplayCommand);
-      addCommand(reactionRoleAddingCommand);
-      addCommand(commandHelper);
-=======
-    //   addCommand(commandHelper);
->>>>>>> 0d5f21e072f08b2ded6de9a93a4adbd9975be18c
- }
+    @PostConstruct
+    public void init() {
+        Command<CommandInterface> command = new Command<>("!habib", EmojiHandler.class);
+        Command<CommandInterface> command1 = new Command<>("!guild", GuildHandler.class);
+        Command<CommandInterface> command2 = new Command<>("!emoji", emoji);
+        Command<CommandInterface> warnCommand = new Command<>("!warn", warning);
+        Command<CommandInterface> banCommand = new Command<>("!ban", baning);
+        Command<CommandInterface> kickCommand = new Command<>("!kick", kicking);
+        Command<CommandInterface> serverInfoCommand = new Command<>("!server-info", serverInfo);
+        Command<CommandInterface> userInfoCommand = new Command<>("!user-info", userInfo);
+        Command<CommandInterface> botInviteCommand = new Command<>("!invite", botInvite);
+        Command<CommandInterface> voiceCommand = new Command<>("!join", voiceChatHandler);
+        Command<CommandInterface> userAvatarDisplayCommand = new Command<>("!avatar", userAvatarDisplay);
+        Command<CommandInterface> reactionRoleAddingCommand = new Command<>("!rr-add", reactionRoleAdding);
+        // Command<CommandInterface> commandHelper= new Command<>("!test",cmdDescript);
 
-    public void addCommand(Command<CommandInterface> command) {
-        commands.put(command.getCommand(),command);
+        // Command<CommandInterface> commandHelper= new Command<>("!test",cmdDescript);
+        addCommand(command);
+        addCommand(command1);
+        addCommand(command2);
+        addCommand(warnCommand);
+        addCommand(banCommand);
+        addCommand(kickCommand);
+        addCommand(serverInfoCommand);
+        addCommand(userInfoCommand);
+        addCommand(botInviteCommand);
+        addCommand(voiceCommand);
+        addCommand(userAvatarDisplayCommand);
+        addCommand(reactionRoleAddingCommand);
+        // addCommand(commandHelper);
+        // addCommand(commandHelper);
     }
 
-    public Map<String,Command<CommandInterface>> getCommands() {
+    public void addCommand(Command<CommandInterface> command) {
+        commands.put(command.getCommand(), command);
+    }
+
+    public Map<String, Command<CommandInterface>> getCommands() {
         return commands;
     }
 

@@ -36,16 +36,6 @@
 //          * Check which Event appears and create object
 //          */
 
-<<<<<<< HEAD
-        if (event instanceof MessageCreateEvent) {
-            MessageCreateEvent msgCreateEvent = (MessageCreateEvent) event;
-            // msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-            //     e.setColor(Color.of(224, 102, 102));
-            //     e.setDescription("Habib ist...");
-            // }).block();
-           // msgCreateEvent.getMessage().addReaction(ReactionEmoji.unicode("1️⃣")).block();
-            userMap.add(msgCreateEvent.getMessage().getId().asLong());
-=======
 //         // MIT GETMESSAGE LÄSST SICH DIE MESSAGE ALLEIN AUCH EDITIEREN
 
 //         if (event instanceof MessageCreateEvent) {
@@ -56,7 +46,6 @@
 //             // }).block();
 //            // msgCreateEvent.getMessage().addReaction(ReactionEmoji.unicode("1️⃣")).block();
 //             userMap.add(msgCreateEvent.getMessage().getId().asLong());
->>>>>>> 0d5f21e072f08b2ded6de9a93a4adbd9975be18c
 
 //             RestChannel channel =gateway.getRestClient().getChannelById(msgCreateEvent.getMessage().getChannelId());
 //             EmbedCreateSpec emd = new  EmbedCreateSpec();
@@ -90,14 +79,4 @@
 //         }
 //     }
 
-<<<<<<< HEAD
-    @Override
-    public String getDescription() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-}
-=======
 // }
->>>>>>> 0d5f21e072f08b2ded6de9a93a4adbd9975be18c

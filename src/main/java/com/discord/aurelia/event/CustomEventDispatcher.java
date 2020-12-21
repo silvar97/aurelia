@@ -1,5 +1,7 @@
 package com.discord.aurelia.event;
 
+import java.nio.channels.CompletionHandler;
+
 import com.discord.aurelia.command.CommandCollection;
 import com.github.benmanes.caffeine.cache.Cache;
 
@@ -88,8 +90,6 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     // private CommandDescriptionHandler cmdDescHandler;
     // @Autowired
     // private GatewayDiscordClient gateway;
-    @Autowired
-    private CommandDescriptionHandler <Event> commandDescriptionHandler;
     @Override
     @SuppressWarnings("unchecked")
     public Class<T> getEventType() {
