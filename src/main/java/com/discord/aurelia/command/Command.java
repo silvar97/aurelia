@@ -1,7 +1,9 @@
 package com.discord.aurelia.command;
 
 import discord4j.core.event.domain.Event;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Command<T extends CommandInterface>{
 
     private String describtion;

@@ -4,7 +4,7 @@ import discord4j.core.event.domain.Event;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReactionRoleAddCommand implements CommandInterface {
+public class RemindCommand implements CommandInterface {
 
     @Override
     public void execute(Event event) {

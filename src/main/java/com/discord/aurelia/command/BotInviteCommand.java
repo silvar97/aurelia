@@ -1,7 +1,10 @@
 package com.discord.aurelia.command;
 
-import discord4j.core.event.domain.Event;
 
+import discord4j.core.event.domain.Event;
+import org.springframework.stereotype.Component;
+
+@Component
 public class BotInviteCommand implements CommandInterface {
 
     @Override
