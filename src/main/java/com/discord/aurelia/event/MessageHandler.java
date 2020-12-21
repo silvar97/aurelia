@@ -3,6 +3,7 @@ package com.discord.aurelia.event;
 import com.discord.aurelia.command.Command;
 import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.command.CommandInterface;
+import com.discord.aurelia.temp.UserMessageMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -30,7 +31,10 @@ public class MessageHandler<T extends MessageEvent> implements CommandInterface 
     private CommandCollection commandCollection;
     @Autowired
     private ApplicationContext context;
-
+    @Autowired
+    private UserMessageMap userMessageMap;
+    @Autowired
+    private CommandDescriptionHandler cmdHandler;
     public MessageHandler() {
         System.out.println("MessageHandler created");
     }
@@ -84,6 +88,10 @@ public class MessageHandler<T extends MessageEvent> implements CommandInterface 
         //         reactionRoleCommand.handle(event);
         //     }
         // }
+
+        if(userMessageMap.containsMessageId(event.getMessage().getId().asLong())){
+                cmdHandler.execute(event);
+        }
 
        if (event.getMessage().getContent().matches("(^[^0-9A-Za-z])([a-z]+)(?: [a-zA-Z0-9\\D]+)?")) {
             Command command = commandCollection.getCommands().get(event.getMessage().getContent().split(" ")[0]);
