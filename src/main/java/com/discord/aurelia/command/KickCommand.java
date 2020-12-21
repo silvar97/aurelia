@@ -2,7 +2,7 @@ package com.discord.aurelia.command;
 
 import discord4j.core.event.domain.Event;
 
-public class WarningCommand implements CommandInterface {
+public class KickCommand implements CommandInterface {
 
     @Override
     public void execute(Event event) {

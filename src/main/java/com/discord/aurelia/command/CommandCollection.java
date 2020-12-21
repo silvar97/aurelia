@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+<<<<<<< HEAD
 import com.discord.aurelia.event.BaningHandler;
 import com.discord.aurelia.event.BotInvite;
 //import com.discord.aurelia.event.CommandDescriptionHandler;
@@ -20,6 +21,13 @@ import com.discord.aurelia.event.UserAvatarDisplay;
 import com.discord.aurelia.event.UserInfoHandler;
 import com.discord.aurelia.event.VoiceChatHandler;
 import com.discord.aurelia.event.WarningHandler;
+=======
+import com.discord.aurelia.handler.EmojiHandler;
+import com.discord.aurelia.handler.GuildHandler;
+import com.discord.aurelia.handler.MessageHandler;
+import com.discord.aurelia.handler.VoiceChatHandler;
+import com.discord.aurelia.handler.WarningHandler;
+>>>>>>> bc000ed55d2fe21090b516b909539295f1b963f5
 import com.nimbusds.oauth2.sdk.Message;
 
 import org.springframework.beans.factory.annotation.Autowired;

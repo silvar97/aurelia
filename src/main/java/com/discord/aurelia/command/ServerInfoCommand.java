@@ -2,7 +2,7 @@ package com.discord.aurelia.command;
 
 import discord4j.core.event.domain.Event;
 
-public class WarningCommand implements CommandInterface {
+public class ServerInfoCommand implements CommandInterface {
 
     @Override
     public void execute(Event event) {
@@ -17,3 +17,4 @@ public class WarningCommand implements CommandInterface {
     }
     
 }
+

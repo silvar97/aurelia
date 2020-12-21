@@ -1,5 +1,10 @@
 
+<<<<<<< HEAD:src/main/java/com/discord/aurelia/event/EmojiHandler.java
 package com.discord.aurelia.event;
+=======
+
+package com.discord.aurelia.handler;
+>>>>>>> bc000ed55d2fe21090b516b909539295f1b963f5:src/main/java/com/discord/aurelia/handler/EmojiHandler.java
 
 import com.discord.aurelia.command.CommandInterface;
 

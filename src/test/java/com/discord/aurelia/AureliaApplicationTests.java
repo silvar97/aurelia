@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import com.discord.aurelia.Service.GatewayService;
-import com.discord.aurelia.event.WarningHandler;
+import com.discord.aurelia.handler.WarningHandler;
 import com.discord.aurelia.repository.BanRepository;
 import com.discord.aurelia.repository.GuildRepository;
 import com.discord.aurelia.repository.UserRepository;

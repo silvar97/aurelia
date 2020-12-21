@@ -1,4 +1,4 @@
-package com.discord.aurelia.event;
+package com.discord.aurelia.handler;
 
 import com.discord.aurelia.command.CommandInterface;
 
