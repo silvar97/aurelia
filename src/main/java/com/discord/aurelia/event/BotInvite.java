@@ -31,7 +31,7 @@ public class BotInvite<T extends Event> implements CommandInterface {
         String userName = msgCreateEvent.getMember().get().getTag();
 
         Mono<Message> monoMsg = msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-            e.setColor(Color.DARK_GRAY);
+            e.setColor(Color.of(224, 102, 102));
             e.setDescription(
                     "I will send you all important links in your private messages.\n Make sure that your DMs are on.");
             e.setFooter("Requested by " + userName, msgCreateEvent.getMember().get().getAvatarUrl());
@@ -42,7 +42,7 @@ public class BotInvite<T extends Event> implements CommandInterface {
         msg.delete().delaySubscription(Duration.ofSeconds(5)).subscribe();
 
         msgCreateEvent.getMember().get().getPrivateChannel().block().createEmbed(p -> {
-            p.setColor(Color.DARK_GRAY);
+            p.setColor(Color.of(224, 102, 102));
             p.setDescription(
                     "[Invite Aurelia](https://discord.com/api/oauth2/authorize?client_id=760466273821392896&permissions=8&scope=bot) | [Need help with Aurelia?](https://discord.gg/sVDuvjrQtZ)");
         }).block();

@@ -42,7 +42,7 @@ public class UserAvatarDisplay<T extends Event> implements CommandInterface {
         MessageCreateEvent msgCreateEvent = (MessageCreateEvent) event;
 
         final Member pingedUser;
-       
+
         if (msgCreateEvent.getMessage().getContent().split(" ").length > 1) {
 
             /*
@@ -59,11 +59,14 @@ public class UserAvatarDisplay<T extends Event> implements CommandInterface {
         } else {
             pingedUser = msgCreateEvent.getMember().get();
         }
-        
+
         msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-            e.setColor(Color.DARK_GRAY);
-            e.setDescription("Avatar of " + pingedUser.getTag());
-            e.setImage(pingedUser.getAvatarUrl()+ "?size=512");
+            e.setColor(Color.of(224, 102, 102));
+            e.setTitle("Avatar of " + pingedUser.getTag());
+            if (pingedUser.getId().asString().equals("760466273821392896")) {
+                e.setDescription("You can find my Avatar [here](https://www.artstation.com/alqmia)");
+            }
+            e.setImage(pingedUser.getAvatarUrl() + "?size=512");
         }).block();
 
     }

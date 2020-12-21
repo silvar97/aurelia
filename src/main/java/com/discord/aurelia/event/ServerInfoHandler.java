@@ -69,7 +69,7 @@ public class ServerInfoHandler<T extends Event> implements CommandInterface {
                  */
                 if (msgCreateEvent.getMessage().getContent().equals("!server-info")) {
                         msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                                e.setColor(Color.DARK_GRAY);
+                                e.setColor(Color.of(224, 102, 102));
                                 e.setThumbnail(msgCreateEvent.getGuild().block().getIconUrl(Format.PNG).get());
                                 e.addField("Server Name", serverName, true);
                                 e.addField("Server Owner ", serverOwner, true);

@@ -70,7 +70,7 @@ public class UserInfoHandler<T extends Event> implements CommandInterface {
                 ZoneId.systemDefault());
 
         msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-            e.setColor(Color.DARK_GRAY);
+            e.setColor(Color.of(224, 102, 102));
             e.setThumbnail(pingedUser.getAvatarUrl());
             e.addField("User Information for " + pingedUser.getTag(), "UserID: " + pingedUser.getId().asString(), true);
             e.addField("Highest Role on Server", userHighestRoles, true);

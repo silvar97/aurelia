@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 
 import com.discord.aurelia.event.BaningHandler;
 import com.discord.aurelia.event.BotInvite;
+import com.discord.aurelia.event.CommandDescriptionHandler;
 import com.discord.aurelia.event.EmojiHandler;
 import com.discord.aurelia.event.GuildHandler;
 import com.discord.aurelia.event.KickHandler;
@@ -66,6 +67,9 @@ public class CommandCollection {
     @Autowired
     private ReactionRoleAdding<Event> reactionRoleAdding;
 
+    @Autowired
+    private CommandDescriptionHandler<Event> commandDescription;
+
 @PostConstruct
  public void init(){
       Command<CommandInterface> command = new Command<>("!habib",EmojiHandler.class);
@@ -79,7 +83,8 @@ public class CommandCollection {
       Command<CommandInterface> botInviteCommand = new Command<>("!invite", botInvite);
       Command<CommandInterface> voiceCommand = new Command<>("!join",voiceChatHandler);
       Command<CommandInterface> userAvatarDisplayCommand = new Command<>("!avatar", userAvatarDisplay);
-      Command<CommandInterface> ReactionRoleAddingCommand = new Command<>("!rr-add", reactionRoleAdding);
+      Command<CommandInterface> reactionRoleAddingCommand = new Command<>("!rr-add", reactionRoleAdding);
+      Command<CommandInterface> commandDescriptionHandler = new Command<>("!test", commandDescription);
 
       addCommand(command);
       addCommand(command1);
@@ -92,7 +97,8 @@ public class CommandCollection {
       addCommand(botInviteCommand);
       addCommand(voiceCommand);
       addCommand(userAvatarDisplayCommand);
-      addCommand(ReactionRoleAddingCommand);
+      addCommand(reactionRoleAddingCommand);
+      addCommand(commandDescriptionHandler);
  }
 
     public void addCommand(Command<CommandInterface> command) {

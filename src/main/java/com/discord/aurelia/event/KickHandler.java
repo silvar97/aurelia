@@ -53,7 +53,7 @@ public class KickHandler<T extends Event> implements CommandInterface {
             List<Role> list = msgCreateEvent.getMember().get().getRoles().collectList().block();
             if (list.size() == 0) {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                    e.setColor(Color.GRAY);
+                    e.setColor(Color.of(224, 102, 102));
                     e.addField("Permission missing", "You need the `KICK_MEMBERS` permission to run this command.",
                             true);
                 }).block();
@@ -67,7 +67,7 @@ public class KickHandler<T extends Event> implements CommandInterface {
 
             if (memberPermissionPresent == true) {
                 pingedUser.getPrivateChannel().block().createEmbed(p -> {
-                    p.setColor(Color.DARK_GRAY);
+                    p.setColor(Color.YELLOW);
                     p.addField("You got kicked from:", msgCreateEvent.getGuild().block().getName(), false);
                     p.addField("Moderator that executed command: ", moderator, false);
                     p.addField("Reason: ", "Todo...", true);
@@ -83,14 +83,14 @@ public class KickHandler<T extends Event> implements CommandInterface {
                 }).block();
             } else {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                    e.setColor(Color.GRAY);
+                    e.setColor(Color.of(224, 102, 102));
                     e.addField("Permission missing", "You need the `KICK_MEMBERS` permission to run this command.",
                             true);
                 }).block();
             }
         } else {
             msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                e.setColor(Color.RED);
+                e.setColor(Color.of(224, 102, 102));
                 e.setDescription("Missing arguments.\n Check the syntax of the command with `!help kick`.");
                 e.setFooter("Requested by " + msgCreateEvent.getMember().get().getTag(),
                         msgCreateEvent.getMember().get().getAvatarUrl());

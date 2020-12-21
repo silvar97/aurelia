@@ -86,7 +86,8 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     private CacheManager cacheManager;
     // @Autowired
     // private GatewayDiscordClient gateway;
-
+    @Autowired
+    private CommandDescriptionHandler <Event> commandDescriptionHandler;
     @Override
     @SuppressWarnings("unchecked")
     public Class<T> getEventType() {
@@ -308,6 +309,7 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onReactionAdd(ReactionAddEvent event) {
+        commandDescriptionHandler.execute(event);
         return Mono.empty();
     }
 
@@ -316,6 +318,7 @@ public class CustomEventDispatcher<T extends Event> implements EventListenerInte
     }
 
     public Mono<Void> onReactionRemove(ReactionRemoveEvent event) {
+        commandDescriptionHandler.execute(event);
         return Mono.empty();
     }
 

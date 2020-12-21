@@ -56,7 +56,7 @@ public class BaningHandler<T extends Event> implements CommandInterface {
             List<Role> list = msgCreateEvent.getMember().get().getRoles().collectList().block();
             if (list.size() == 0) {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                    e.setColor(Color.GRAY);
+                    e.setColor(Color.of(224, 102, 102));
                     e.addField("Permission missing", "You need the `BAN_MEMBERS` permission to run this command.",
                             true);
                 }).block();
@@ -70,7 +70,7 @@ public class BaningHandler<T extends Event> implements CommandInterface {
 
             if (memberPermissionPresent == true) {
                 pingedUser.getPrivateChannel().block().createEmbed(p -> {
-                    p.setColor(Color.DARK_GRAY);
+                    p.setColor(Color.of(224, 102, 102));
                     p.addField("You got banned from:", msgCreateEvent.getGuild().block().getName(), false);
                     p.addField("Moderator that executed command: ", moderator, false);
                     p.addField("Reason: ", "Todo...", true);
@@ -78,7 +78,7 @@ public class BaningHandler<T extends Event> implements CommandInterface {
                 pingedUser.ban(member -> {
                     member.setReason("Test");
                     msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                        e.setColor(Color.YELLOW);
+                        e.setColor(Color.RED);
                         e.setAuthor(pingedUser.getTag() + " has been banned", pingedUser.getDefaultAvatarUrl(),
                                 pingedUser.getAvatarUrl());
                         e.addField("Reason: ", "Todo...", false);
@@ -88,14 +88,14 @@ public class BaningHandler<T extends Event> implements CommandInterface {
                 }).block();
             } else {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                    e.setColor(Color.GRAY);
+                    e.setColor(Color.of(224, 102, 102));
                     e.addField("Permission missing", "You need the `BAN_MEMBERS` permission to run this command.",
                             true);
                 }).block();
             }
         } else {
             msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                e.setColor(Color.RED);
+                e.setColor(Color.of(224, 102, 102));
                 e.setDescription("Missing arguments.\n Check the syntax of the command with `!help ban`.");
                 e.setFooter("Requested by " + msgCreateEvent.getMember().get().getTag(),
                         msgCreateEvent.getMember().get().getAvatarUrl());
