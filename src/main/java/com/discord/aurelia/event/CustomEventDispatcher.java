@@ -1,10 +1,5 @@
 package com.discord.aurelia.event;
 
-<<<<<<< HEAD
-import java.nio.channels.CompletionHandler;
-
-=======
->>>>>>> bc000ed55d2fe21090b516b909539295f1b963f5
 import com.discord.aurelia.command.CommandCollection;
 import com.discord.aurelia.handler.EmojiHandler;
 import com.discord.aurelia.handler.GuildHandler;

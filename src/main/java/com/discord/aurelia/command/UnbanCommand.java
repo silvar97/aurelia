@@ -1,6 +1,4 @@
-package com.discord.aurelia.event;
-
-import com.discord.aurelia.command.CommandInterface;
+package com.discord.aurelia.command;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +15,7 @@ import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Role;
 
 @Component
-public class KickHandler<T extends Event> implements CommandInterface {
+public class UnbanCommand implements CommandInterface {
 
     @Autowired
     private GatewayDiscordClient gateway;
@@ -54,44 +52,33 @@ public class KickHandler<T extends Event> implements CommandInterface {
             if (list.size() == 0) {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
                     e.setColor(Color.of(224, 102, 102));
-                    e.addField("Permission missing", "You need the `KICK_MEMBERS` permission to run this command.",
+                    e.addField("Permission missing", "You need the `BAN_MEMBERS` permission to run this command.",
                             true);
                 }).block();
                 return;
             }
 
             long permLongUser = list.get(0).getPermissions().getRawValue();
-            boolean memberPermissionPresent = (permLongUser & 2) == 2;
-
-            String moderator = String.format("%s", msgCreateEvent.getMessage().getAuthor().get().getTag());
+            boolean memberPermissionPresent = (permLongUser & 4) == 4;
 
             if (memberPermissionPresent == true) {
-                pingedUser.getPrivateChannel().block().createEmbed(p -> {
-                    p.setColor(Color.YELLOW);
-                    p.addField("You got kicked from:", msgCreateEvent.getGuild().block().getName(), false);
-                    p.addField("Moderator that executed command: ", moderator, false);
-                    p.addField("Reason: ", "Todo...", true);
-                }).block();
-                pingedUser.kick().block();
+                pingedUser.unban().block();
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                    e.setColor(Color.YELLOW);
-                    e.setAuthor(pingedUser.getTag() + " has been kicked", pingedUser.getDefaultAvatarUrl(),
+                    e.setColor(Color.GREEN);
+                    e.setAuthor(pingedUser.getTag() + " has been unbanned", pingedUser.getDefaultAvatarUrl(),
                             pingedUser.getAvatarUrl());
-                    e.addField("Reason: ", "Todo...", false);
-                    e.setFooter("Kicked by Moderator: " + msgCreateEvent.getMember().get().getTag(), null);
-                    e.setTimestamp(Instant.now());
                 }).block();
             } else {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
                     e.setColor(Color.of(224, 102, 102));
-                    e.addField("Permission missing", "You need the `KICK_MEMBERS` permission to run this command.",
+                    e.addField("Permission missing", "You need the `BAN_MEMBERS` permission to run this command.",
                             true);
                 }).block();
             }
         } else {
             msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
                 e.setColor(Color.of(224, 102, 102));
-                e.setDescription("Missing arguments.\n Check the syntax of the command with `!help kick`.");
+                e.setDescription("Missing arguments.\n Check the syntax of the command with `!help unban`.");
                 e.setFooter("Requested by " + msgCreateEvent.getMember().get().getTag(),
                         msgCreateEvent.getMember().get().getAvatarUrl());
                 e.setTimestamp(Instant.now());

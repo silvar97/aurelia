@@ -1,26 +1,24 @@
-package com.discord.aurelia.event;
-
-import com.discord.aurelia.command.CommandInterface;
-import com.discord.aurelia.constant.CommandConstant;
+package com.discord.aurelia.command;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.stereotype.Component;
 
+import java.security.Permissions;
 import java.time.Instant;
 import java.util.List;
 
 import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.rest.util.Color;
+import discord4j.rest.util.Permission;
+import discord4j.rest.util.PermissionSet;
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Role;
-import discord4j.core.object.entity.User;
 
 @Component
-public class BaningHandler<T extends Event> implements CommandInterface {
+public class MuteCommand implements CommandInterface {
 
     @Autowired
     private GatewayDiscordClient gateway;
@@ -57,46 +55,39 @@ public class BaningHandler<T extends Event> implements CommandInterface {
             if (list.size() == 0) {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
                     e.setColor(Color.of(224, 102, 102));
-                    e.addField("Permission missing", "You need the `BAN_MEMBERS` permission to run this command.",
+                    e.addField("Permission missing", "You need the `KICK_MEMBERS` permission to run this command.",
                             true);
                 }).block();
                 return;
             }
+            List<Role> searchForMutedRole = msgCreateEvent.getGuild().block().getRoles().collectList().block();
+            //if(searchForMutedRole.contains());
+            //System.out.println(searchMuteRole);
 
             long permLongUser = list.get(0).getPermissions().getRawValue();
-            boolean memberPermissionPresent = (permLongUser & 2) == 2;
-
-            String moderator = String.format("%s", msgCreateEvent.getMessage().getAuthor().get().getTag());
+            boolean memberPermissionPresent = (permLongUser & 0x400000) == 0x400000;
+            
+            //String moderator = String.format("%s", msgCreateEvent.getMessage().getAuthor().get().getTag());
 
             if (memberPermissionPresent == true) {
-                pingedUser.getPrivateChannel().block().createEmbed(p -> {
-                    p.setColor(Color.of(224, 102, 102));
-                    p.addField("You got banned from:", msgCreateEvent.getGuild().block().getName(), false);
-                    p.addField("Moderator that executed command: ", moderator, false);
-                    p.addField("Reason: ", "Todo...", true);
-                }).block();
-                pingedUser.ban(member -> {
-                    member.setReason("Test");
-                    msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
-                        e.setColor(Color.RED);
-                        e.setAuthor(pingedUser.getTag() + " has been banned", pingedUser.getDefaultAvatarUrl(),
-                                pingedUser.getAvatarUrl());
-                        e.addField("Reason: ", "Todo...", false);
-                        e.setFooter("Banned by Moderator: " + msgCreateEvent.getMember().get().getTag(), null);
-                        e.setTimestamp(Instant.now());
-                    }).block();
-                }).block();
+                msgCreateEvent.getGuild().block().createRole(spec ->{
+                    spec.setName("🔇 Muted");
+                    spec.setColor(Color.GRAY);
+                    spec.setPermissions(PermissionSet.of(Permission.VIEW_CHANNEL,Permission.READ_MESSAGE_HISTORY));
+                }).block();   
+                pingedUser.addRole(Snowflake.of("790947512088920084")).block();
+
             } else {
                 msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
                     e.setColor(Color.of(224, 102, 102));
-                    e.addField("Permission missing", "You need the `BAN_MEMBERS` permission to run this command.",
+                    e.addField("Permission missing", "You need the `MUTE_MEMBERS` permission to run this command.",
                             true);
                 }).block();
             }
         } else {
             msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
                 e.setColor(Color.of(224, 102, 102));
-                e.setDescription("Missing arguments.\n Check the syntax of the command with `!help ban`.");
+                e.setDescription("Missing arguments.\n Check the syntax of the command with `!help mute`.");
                 e.setFooter("Requested by " + msgCreateEvent.getMember().get().getTag(),
                         msgCreateEvent.getMember().get().getAvatarUrl());
                 e.setTimestamp(Instant.now());

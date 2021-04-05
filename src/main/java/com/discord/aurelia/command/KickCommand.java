@@ -1,13 +1,110 @@
 package com.discord.aurelia.command;
 
-import discord4j.core.event.domain.Event;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.util.List;
+
+import discord4j.common.util.Snowflake;
+import discord4j.core.GatewayDiscordClient;
+import discord4j.rest.util.Color;
+import discord4j.core.event.domain.Event;
+import discord4j.core.event.domain.message.MessageCreateEvent;
+import discord4j.core.object.entity.Member;
+import discord4j.core.object.entity.Role;
+
+@Component
 public class KickCommand implements CommandInterface {
 
-    @Override
-    public void execute(Event event) {
-        // TODO Auto-generated method stub
+    @Autowired
+    private GatewayDiscordClient gateway;
 
+    public void execute(Event event) {
+
+        /*
+         * Create object of MessageCreateEvent class
+         */
+        MessageCreateEvent msgCreateEvent = (MessageCreateEvent) event;
+
+        final Member pingedUser;
+
+        /*
+         * Check if mentioned member is empty
+         */
+        if (msgCreateEvent.getMessage().getContent().split(" ").length > 1) {
+
+            /*
+             * Define user who mentioned another user
+             */
+            String mentionedUser = msgCreateEvent.getMessage().getContent().replaceAll(" +", " ").split(" ")[1]
+                    .replaceAll("[^0-9]", "");
+
+            /*
+             * Define user that GETS mentioned by another user
+             */
+            pingedUser = gateway.getMemberById(msgCreateEvent.getGuildId().get(), Snowflake.of(mentionedUser)).block();
+
+            /*
+             * Check if role not empty
+             */
+            List<Role> list = msgCreateEvent.getMember().get().getRoles().collectList().block();
+            if (list.size() == 0) {
+                msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
+                    e.setColor(Color.of(224, 102, 102));
+                    e.addField("Permission missing", "You need the `KICK_MEMBERS` permission to run this command.",
+                            true);
+                }).block();
+                return;
+            }
+
+            long permLongUser = list.get(0).getPermissions().getRawValue();
+            boolean memberPermissionPresent = (permLongUser & 2) == 2;
+
+            String moderator = String.format("%s", msgCreateEvent.getMessage().getAuthor().get().getTag());
+
+            if (memberPermissionPresent == true) {
+                pingedUser.getPrivateChannel().block().createEmbed(p -> {
+                    p.setColor(Color.YELLOW);
+                    p.addField("You got kicked from:", msgCreateEvent.getGuild().block().getName(), false);
+                    p.addField("Moderator that executed command: ", moderator, false);
+                    if (msgCreateEvent.getMessage().getContent().split(" ").length >= 2) {
+                        String reason = msgCreateEvent.getMessage().getContent().split(" ")[2];
+                        p.addField("Reason: ", reason, true);
+                    } else if (msgCreateEvent.getMessage().getContent().split(" ").length > 1) {
+                        p.addField("Reason: ", "No reason given.", true);
+                    }
+                }).block();
+                pingedUser.kick().block();
+                msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
+                    e.setColor(Color.YELLOW);
+                    e.setAuthor(pingedUser.getTag() + " has been kicked", pingedUser.getDefaultAvatarUrl(),
+                            pingedUser.getAvatarUrl());
+                    if (msgCreateEvent.getMessage().getContent().split(" ").length >= 2) {
+                        String reason = msgCreateEvent.getMessage().getContent().split(" ")[2];
+                        e.addField("Reason: ", reason, true);
+                    } else if (msgCreateEvent.getMessage().getContent().split(" ").length > 1) {
+                        e.addField("Reason: ", "No reason given.", true);
+                    }
+                    e.setFooter("Kicked by Moderator: " + msgCreateEvent.getMember().get().getTag(), null);
+                    e.setTimestamp(Instant.now());
+                }).block();
+            } else {
+                msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
+                    e.setColor(Color.of(224, 102, 102));
+                    e.addField("Permission missing", "You need the `KICK_MEMBERS` permission to run this command.",
+                            true);
+                }).block();
+            }
+        } else {
+            msgCreateEvent.getMessage().getChannel().block().createEmbed(e -> {
+                e.setColor(Color.of(224, 102, 102));
+                e.setDescription("Missing arguments.\n Check the syntax of the command with `!help kick`.");
+                e.setFooter("Requested by " + msgCreateEvent.getMember().get().getTag(),
+                        msgCreateEvent.getMember().get().getAvatarUrl());
+                e.setTimestamp(Instant.now());
+            }).block();
+        }
     }
 
     @Override
@@ -15,5 +112,5 @@ public class KickCommand implements CommandInterface {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
 }
