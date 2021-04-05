@@ -1,6 +1,5 @@
 package com.discord.aurelia.command;
 
-<<<<<<< HEAD
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -11,11 +10,9 @@ import reactor.core.publisher.Mono;
 import discord4j.core.event.domain.Event;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
-=======
 
 import discord4j.core.event.domain.Event;
 import org.springframework.stereotype.Component;
->>>>>>> 859468a60779971fb06626698f7065fc968b61b5
 
 @Component
 public class BotInviteCommand implements CommandInterface {
