@@ -4,16 +4,18 @@ import discord4j.core.event.domain.Event;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DescriptionCommand implements CommandInterface {
+public class RemindCommand implements CommandInterface {
 
     @Override
     public void execute(Event event) {
+        // TODO Auto-generated method stub
 
     }
 
     @Override
     public String description() {
-        return "DescrptionHelper";
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }

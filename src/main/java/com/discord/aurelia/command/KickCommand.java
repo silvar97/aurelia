@@ -10,9 +10,13 @@ import discord4j.common.util.Snowflake;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.rest.util.Color;
 import discord4j.core.event.domain.Event;
+<<<<<<< HEAD
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Member;
 import discord4j.core.object.entity.Role;
+=======
+import org.springframework.stereotype.Component;
+>>>>>>> 859468a60779971fb06626698f7065fc968b61b5
 
 @Component
 public class KickCommand implements CommandInterface {
